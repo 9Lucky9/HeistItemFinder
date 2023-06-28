@@ -1,0 +1,50 @@
+﻿<Window x:Class="HeistItemFinder.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HeistItemFinder"
+        xmlns:properties="clr-namespace:HeistItemFinder.Properties"
+        xmlns:viewmodels="clr-namespace:HeistItemFinder.MVVM.ViewModels" 
+        xmlns:views="clr-namespace:HeistItemFinder.MVVM.Views" 
+        mc:Ignorable="d"
+        Title="Heist item finder" Height="450" Width="800"
+        Closing="Window_Closing"
+        d:DataContext="{d:DesignInstance Type=viewmodels:MainWindowViewModel, IsDesignTimeCreatable=True}">
+
+    <Grid x:Name="MainFrame">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.2*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Heist item finder" Grid.Column="0" Grid.Row="0" FontSize="50"/>
+
+        <Grid x:Name="Language" Grid.Row="0" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Text="In-game Language:" FontSize="25"/>
+            <ComboBox Grid.Row="1" x:Name="testik" IsReadOnly="True" 
+                  ItemsSource="{Binding Images}"
+                  SelectedItem="{Binding SelectedLanguageImage}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <Image Source="{Binding Uri}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+
+            </ComboBox>
+        </Grid>
+
+        <views:SettingsView Grid.Column="1" Grid.Row="1" DataContext="{Binding SettingsViewModel}"/>
+
+        <views:SearchView Grid.Column="0" Grid.Row="1" DataContext="{Binding SearchViewModel}"/>
+
+    </Grid>
+</Window>
