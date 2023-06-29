@@ -1,4 +1,5 @@
-﻿using HeistItemFinder.Interfaces;
+﻿using HeistItemFinder.Exceptions;
+using HeistItemFinder.Interfaces;
 using OpenCvSharp;
 using OpenCvSharp.Extensions;
 using System;
@@ -21,17 +22,17 @@ namespace HeistItemFinder.Realizations
         public OpenCvVision()
         {
             _temporary = new Mat();
+            _template = new Mat(
+                AppDomain.CurrentDomain.BaseDirectory + "\\Assets\\heist-lock.bmp");
         }
 
         /// <summary>
         /// Return image that is ready for text recognition.
         /// </summary>
         /// <param name="image">Original image.</param>
-        /// <param name="template">Template.</param>
-        public Bitmap ProcessImage(Image image, Image template)
+        public Bitmap ProcessImage(Image image)
         {
             _image = new Bitmap(image).ToMat();
-            _template = new Bitmap(template).ToMat();
 
             var allMatches = FindAllMatches();
             //Cv2.ImShow("Test", _image);
@@ -40,6 +41,7 @@ namespace HeistItemFinder.Realizations
             
             OpenCvSharp.Point min = new OpenCvSharp.Point();
             OpenCvSharp.Point max = new OpenCvSharp.Point();
+            var nonPassedGroups = 0;
             foreach (var group in groups)
             {
                 if (group.Count() == 2)
@@ -56,8 +58,15 @@ namespace HeistItemFinder.Realizations
                         min = lastPoint;
                         max = firstPoint;
                     }
+                    break;
+                }
+                else
+                {
+                    nonPassedGroups++;
                 }
             }
+            if (nonPassedGroups == groups.Count())
+                throw new NoTemplateMatches("No matches on the image were found, try again.");
 
             //Crop image
             var tabHeight = min.Y + _originalTemplateHeight;

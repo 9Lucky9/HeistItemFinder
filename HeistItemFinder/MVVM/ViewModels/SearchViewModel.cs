@@ -145,9 +145,7 @@ namespace HeistItemFinder.MVVM.ViewModels
             }
             var img = _iScreenShotWin32.CaptureScreen();
             var testImg = new Bitmap("C:\\Users\\pro19\\Downloads\\EnglishTest.png");
-            var template = new Bitmap(
-                AppDomain.CurrentDomain.BaseDirectory + "\\Assets\\heist-lock.bmp");
-            var processedImage = _iOpenCvVision.ProcessImage(testImg, template);
+            var processedImage = _iOpenCvVision.ProcessImage(testImg);
             SaveTestResults(processedImage);
             //var img = new Bitmap("C:\\Users\\pro19\\OneDrive\\Рабочий стол\\OpenCvTests\\638205227385097514.bmp");
             var text = _iTextFromImageReader.GetTextFromImage(processedImage);
@@ -155,25 +153,6 @@ namespace HeistItemFinder.MVVM.ViewModels
             var historyItem = GetHistoryItem(result);
             HistoryItems.Add(historyItem);
             return result;
-        }
-
-        //private async Task<string> Test()
-        //{
-        //    var img = new Bitmap("C:\\Users\\pro19\\OneDrive\\Рабочий стол\\OpenCvTests\\638205227385097514.bmp");
-        //    var text = _iTextFromImageReader.GetTextFromImage(img);
-        //    var formattedText = ItemFinder.FormatTextByLines(text);
-        //    var response = await _iPoeNinjaParser.FindItem(formattedText.First(), Array.Empty<string>());
-        //    return response;
-        //}
-
-        private async Task<Bitmap> DownloadItemIcon(string imageUrl)
-        {
-            var client = new HttpClient();
-            var response = await client.GetAsync(imageUrl);
-            using (var stream = response.Content.ReadAsStream())
-            {
-                return new Bitmap(stream);
-            }
         }
 
         private void SaveTestResults(Bitmap imageToSave)

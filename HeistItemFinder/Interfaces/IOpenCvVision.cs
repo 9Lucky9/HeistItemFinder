@@ -4,6 +4,6 @@ namespace HeistItemFinder.Interfaces
 {
     public interface IOpenCvVision
     {
-        public Bitmap ProcessImage(Image image, Image template);
+        public Bitmap ProcessImage(Image image);
     }
 }
