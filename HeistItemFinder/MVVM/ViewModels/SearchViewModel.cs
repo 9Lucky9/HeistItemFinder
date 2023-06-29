@@ -74,6 +74,9 @@ namespace HeistItemFinder.MVVM.ViewModels
             _popup.DataContext = this;
         }
 
+        /// <summary>
+        /// Get a search key combination from the settings.
+        /// </summary>
         private static Dictionary<Key, bool> GetSearchKeys()
         {
             var keys = SettingsHelper.GetKeysFromSettings(
@@ -86,6 +89,9 @@ namespace HeistItemFinder.MVVM.ViewModels
             return keysValuePair;
         }
 
+        /// <summary>
+        /// Event when key is pressed.
+        /// </summary>
         private void KeyboardHook_OnKeyPressed(object? sender, Key e)
         {
             if (_keysPressed.ContainsKey(e))
@@ -95,6 +101,9 @@ namespace HeistItemFinder.MVVM.ViewModels
             CheckKeyCombo();
         }
 
+        /// <summary>
+        /// Event when key is unpressed.
+        /// </summary>
         private void KeyboardHook_OnKeyUnpressed(object? sender, Key e)
         {
             if (_keysPressed.ContainsKey(e))
@@ -103,6 +112,9 @@ namespace HeistItemFinder.MVVM.ViewModels
             }
         }
 
+        /// <summary>
+        /// Chekes when specified in settings key combo is pressed.
+        /// </summary>
         private async void CheckKeyCombo()
         {
             foreach (var key in _keysPressed)
@@ -155,6 +167,11 @@ namespace HeistItemFinder.MVVM.ViewModels
             return result;
         }
 
+        /// <summary>
+        /// ONLY FOR TEST PURPOSES.
+        /// Method that saves image to disk.
+        /// </summary>
+        /// <param name="imageToSave"></param>
         private void SaveTestResults(Bitmap imageToSave)
         {
             var desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
