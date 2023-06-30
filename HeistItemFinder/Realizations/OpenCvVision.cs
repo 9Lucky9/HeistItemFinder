@@ -79,9 +79,9 @@ namespace HeistItemFinder.Realizations
             var result = _image[rect];
 
             var resultGray = result.CvtColor(ColorConversionCodes.BGR2GRAY);
-            var binarized = resultGray.Threshold(85, 255, ThresholdTypes.Binary);
-            Cv2.ImShow("Test", binarized);
-            Cv2.WaitKey();
+            var binarized = resultGray.Threshold(86, 255, ThresholdTypes.Binary);
+            //Cv2.ImShow("Test", binarized);
+            //Cv2.WaitKey();
             var bitmap = binarized.ToBitmap();
 
             return bitmap;

@@ -141,7 +141,7 @@ namespace HeistItemFinder.MVVM.ViewModels
         private EquipmentResponse _equipmentResponse;
         private async Task<EquipmentResponse> ParseItems()
         {
-            return (await _iPoeNinjaParser.ParseItem());
+            return (await _iPoeNinjaParser.ParseItems());
         }
 
         private async Task<BaseEquipment> FindItemPrice()

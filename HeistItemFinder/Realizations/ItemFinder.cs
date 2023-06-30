@@ -7,15 +7,21 @@ namespace HeistItemFinder.Realizations
 {
     public static class ItemFinder
     {
+        //TODO: To improve confidence of text
+        //      apply correction based on existing keywords
+        //      that are possible in heist mode.
+        //      Keywords could be retrieved from wiki, poe trade etc.
+
         public static BaseEquipment FindLastListedItem(
             EquipmentResponse equipmentResponse,
-            string imageText,
+            string textFromImage,
             bool applyModificators = false)
         {
+            var items = equipmentResponse.Lines;
+            var formattedItemName = FormatTextByLines(textFromImage).First();
+
             if (equipmentResponse.Language is not null)
             {
-                var formattedItemName = FormatTextByLines(imageText).First();
-                var items = equipmentResponse.Lines;
                 var translations = equipmentResponse.Language.Translations;
                 var englishName = "";
                 foreach (var translation in translations)
@@ -40,9 +46,6 @@ namespace HeistItemFinder.Realizations
             }
             else
             {
-                var formattedItemName = FormatTextByLines(imageText).First();
-                var items = equipmentResponse.Lines;
-
                 var lastListedItems = items.Where(
                     x => x.Name.Contains(formattedItemName, System.StringComparison.OrdinalIgnoreCase));
                 var mininalPriceItem = lastListedItems.MinBy(x => x.ChaosValue);
@@ -57,7 +60,8 @@ namespace HeistItemFinder.Realizations
             }
         }
 
-        public static List<string> FormatTextByLines(string text)
+
+        private static List<string> FormatTextByLines(string text)
         {
             List<string> lines = new List<string>();
             using (var sr = new StringReader(text))

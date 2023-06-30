@@ -34,7 +34,7 @@ namespace HeistItemFinder.Realizations
         /// <summary>
         /// Retrieve all items from the poe ninja.
         /// </summary>
-        public async Task<EquipmentResponse> ParseItem()
+        public async Task<EquipmentResponse> ParseItems()
         {
             var gems = await ParseSkillGems();
             var uniqueWeapons = await ParseUniqueWeapons();
@@ -52,6 +52,8 @@ namespace HeistItemFinder.Realizations
             allItems.AddRange(uniqueArmour.Lines);
             allItems.AddRange(uniqueAccessories.Lines);
 
+            var equipmentResponse = new EquipmentResponse();
+
             if (Properties.Settings.Default.Language != "en")
             {
                 var translations = await ReadLanguageTranslations();
@@ -60,27 +62,29 @@ namespace HeistItemFinder.Realizations
                         uniqueWeapons.Language.Translations.Count +
                         uniqueArmour.Language.Translations.Count +
                         uniqueAccessories.Language.Translations.Count;
-                var allTranslations = new Dictionary<string, string>(numberOfTranslations);
+                var allTranslations = 
+                    new Dictionary<string, string>(numberOfTranslations);
                 allTranslations.AddRange(gems.Language.Translations);
                 allTranslations.AddRange(uniqueWeapons.Language.Translations);
                 allTranslations.AddRange(uniqueArmour.Language.Translations);
                 allTranslations.AddRange(uniqueAccessories.Language.Translations);
 
-                //var language = new Language()
-                //{
-                //    Name = gems.Language.Name,
-                //    Translations = null
-                //};
-                var equipmentResponse = new EquipmentResponse()
+                equipmentResponse = new EquipmentResponse()
                 {
                     Lines = allItems.ToArray(),
-                    Language = null
+                    Language = translations
                 };
                 await WriteToFile(equipmentResponse);
                 return equipmentResponse;
             }
-            return ReadFromFile();
 
+            equipmentResponse = new EquipmentResponse()
+            {
+                Lines = allItems.ToArray(),
+                Language = null
+            };
+            //await WriteToFile(equipmentResponse);
+            return equipmentResponse;
         }
 
         //TODO: Parse only required fields.
@@ -117,14 +121,20 @@ namespace HeistItemFinder.Realizations
             return await response.Content.ReadFromJsonAsync<EquipmentResponse>();
         }
 
-        private async Task<string> ReadLanguageTranslations()
+        private async Task<Language> ReadLanguageTranslations()
         {
-            var path = "";
-            return path;
+            var path = $"{_applicationPath}\\Assets\\Language_translations.json";
+            var result = JsonSerializer.Deserialize<Language>(path);
+            return result;
         }
 
 
         //https://www.pathofexile.com/api/trade/search/Crucible
+        /// <summary>
+        /// Currently not possible due to lack of data from the poe ninja.
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
         private async Task<string> ParseTrinkets()
         {
             var httpClient = new HttpClient();
