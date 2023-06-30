@@ -3,16 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:HeistItemFinder.MVVM.Views"
+             xmlns:local="clr-namespace:HeistItemFinder.MVVM"
              xmlns:models="clr-namespace:HeistItemFinder.MVVM.Models"
-             xmlns:helper="clr-namespace:HeistItemFinder.MVVM"
              xmlns:viewmodels="clr-namespace:HeistItemFinder.MVVM.ViewModels" 
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              d:DataContext="{d:DesignInstance Type=viewmodels:SettingsViewModel, IsDesignTimeCreatable=True}">
 
     <UserControl.Resources>
-        <helper:EnumToBooleanConverter x:Key="ComparisonConverter"/>
+        <local:EnumToBooleanConverter x:Key="ComparisonConverter"/>
     </UserControl.Resources>
     
     <Grid x:Name="SettingsGrid" Grid.Row="1" Grid.Column="1" >
@@ -46,7 +45,7 @@
                     Binding Path=DisplayedCurrency,
                     Converter={StaticResource ComparisonConverter},
                     ConverterParameter={x:Static models:CurrencyEnum.Chaos}}" GroupName="Currency" FontSize="15" VerticalAlignment="Center"/>
-                <Image Source="/Assets/Currency/CurrencyChaos.png" Width="47" Height="47"/>
+                <Image Source="/Assets/Currency/Chaos.png" Width="47" Height="47"/>
                 <TextBlock Text="Chaos" VerticalAlignment="Center" FontSize="20"/>
                 
             </WrapPanel>
@@ -57,7 +56,7 @@
                     Converter={StaticResource ComparisonConverter},
                     ConverterParameter={x:Static models:CurrencyEnum.Divine}}" 
                              GroupName="Currency" FontSize="15" VerticalAlignment="Center"/>
-                <Image Source="/Assets/Currency/CurrencyDivine.png" Width="47" Height="47"/>
+                <Image Source="/Assets/Currency/Divine.png" Width="47" Height="47"/>
                 <TextBlock Text="Divine" VerticalAlignment="Center" FontSize="20"/>
             </WrapPanel>
             <WrapPanel Orientation="Vertical" Grid.Row="3">
