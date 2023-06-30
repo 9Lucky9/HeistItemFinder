@@ -29,5 +29,13 @@ namespace HeistItemFinder.MVVM.Views
         {
             Hotkey_TextBox.Text = string.Empty;
         }
+
+        private void Hotkey_LostFocus(object sender, System.Windows.RoutedEventArgs e)
+        {
+            if(Hotkey_TextBox.Text == string.Empty)
+            {
+                
+            }
+        }
     }
 }

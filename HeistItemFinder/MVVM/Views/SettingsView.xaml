@@ -27,7 +27,9 @@
             <TextBox x:Name="Hotkey_TextBox"
                      Text="{Binding KeyCombination}"
                      KeyUp="Hotkey_KeyUp" 
-                     GotFocus="Hotkey_GotFocus"  FontSize="25"/>
+                     GotFocus="Hotkey_GotFocus"
+                     LostFocus="Hotkey_LostFocus"
+                     FontSize="25"/>
         </WrapPanel>
         
         <Grid x:Name="CurrencyGrid"  Grid.Row="1">
