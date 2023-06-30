@@ -39,7 +39,7 @@ public partial class App : Application
                     DataContext = provider.GetRequiredService<SettingsViewModel>()
                 });
                 services.AddSingleton<Popup>(provider => new Popup());
-                services.AddSingleton(provider => 
+                services.AddSingleton(provider =>
                 new SearchViewModel(
                     provider.GetRequiredService<IPoeTradeParser>(),
                     provider.GetRequiredService<IPoeItemsParser>(),

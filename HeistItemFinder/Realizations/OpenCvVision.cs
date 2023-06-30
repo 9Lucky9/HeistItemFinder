@@ -38,7 +38,7 @@ namespace HeistItemFinder.Realizations
             //Cv2.ImShow("Test", _image);
             //Cv2.WaitKey();
             var groups = allMatches.GroupBy(x => x.Y);
-            
+
             OpenCvSharp.Point min = new OpenCvSharp.Point();
             OpenCvSharp.Point max = new OpenCvSharp.Point();
             var nonPassedGroups = 0;
@@ -80,8 +80,8 @@ namespace HeistItemFinder.Realizations
 
             var resultGray = result.CvtColor(ColorConversionCodes.BGR2GRAY);
             var binarized = resultGray.Threshold(85, 255, ThresholdTypes.Binary);
-            //Cv2.ImShow("Test", binarized);
-            //Cv2.WaitKey();
+            Cv2.ImShow("Test", binarized);
+            Cv2.WaitKey();
             var bitmap = binarized.ToBitmap();
 
             return bitmap;
@@ -150,8 +150,8 @@ namespace HeistItemFinder.Realizations
         /// For test purposes only.
         /// </summary>
         private void DrawRectanglesOnImage(
-            OpenCvSharp.Point originalPoint, 
-            float originalWidthPoint, 
+            OpenCvSharp.Point originalPoint,
+            float originalWidthPoint,
             float scale)
         {
             var r = new Rect(

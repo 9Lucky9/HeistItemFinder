@@ -1,6 +1,5 @@
 ﻿using HeistItemFinder.Extensions;
 using HeistItemFinder.Interfaces;
-using HeistItemFinder.Models;
 using HeistItemFinder.Models.PoeNinja;
 using HeistItemFinder.Models.PoeNinja.SkillGem;
 using System;
@@ -23,10 +22,6 @@ namespace HeistItemFinder.Realizations
 
         private string _applicationPath = AppDomain.CurrentDomain.BaseDirectory;
 
-        public List<Translation> Translations { get; }
-
-        public List<BaseEquipment> Equipment { get; }
-
         private static HttpClient _client;
 
         public PoeNinjaParser()
@@ -35,42 +30,41 @@ namespace HeistItemFinder.Realizations
             _client.BaseAddress = new Uri(_basePoeNinjaAddress);
         }
 
+
         /// <summary>
         /// Retrieve all items from the poe ninja.
         /// </summary>
         public async Task<EquipmentResponse> ParseItem()
         {
-            if (true)
+            var gems = await ParseSkillGems();
+            var uniqueWeapons = await ParseUniqueWeapons();
+            var uniqueArmour = await ParseUniqueArmour();
+            var uniqueAccessories = await ParseUniqueAccessories();
+            var numberOfItems =
+                gems.Lines.Length +
+                uniqueWeapons.Lines.Length +
+                uniqueArmour.Lines.Length
+                + uniqueAccessories.Lines.Length;
+
+            var allItems = new List<BaseEquipment>(numberOfItems);
+            allItems.AddRange(gems.Lines);
+            allItems.AddRange(uniqueWeapons.Lines);
+            allItems.AddRange(uniqueArmour.Lines);
+            allItems.AddRange(uniqueAccessories.Lines);
+
+            if (Properties.Settings.Default.Language != "en")
             {
-                var gems = await ParseSkillGems();
-                var uniqueWeapons = await ParseUniqueWeapons();
-                var uniqueArmour = await ParseUniqueArmour();
-                var uniqueAccessories = await ParseUniqueAccessories();
-                var numberOfItems =
-                    gems.Lines.Length +
-                    uniqueWeapons.Lines.Length +
-                    uniqueArmour.Lines.Length
-                    + uniqueAccessories.Lines.Length;
-
-                var allItems = new List<BaseEquipment>(numberOfItems);
-                allItems.AddRange(gems.Lines);
-                allItems.AddRange(uniqueWeapons.Lines);
-                allItems.AddRange(uniqueArmour.Lines);
-                allItems.AddRange(uniqueAccessories.Lines);
-
-                if(gems.Language is not null)
-                {
-                    var numberOfTranslations =
+                var translations = await ReadLanguageTranslations();
+                var numberOfTranslations =
                         gems.Language.Translations.Count +
                         uniqueWeapons.Language.Translations.Count +
                         uniqueArmour.Language.Translations.Count +
                         uniqueAccessories.Language.Translations.Count;
-                    var allTranslations = new Dictionary<string, string>(numberOfTranslations);
-                    allTranslations.AddRange(gems.Language.Translations);
-                    allTranslations.AddRange(uniqueWeapons.Language.Translations);
-                    allTranslations.AddRange(uniqueArmour.Language.Translations);
-                    allTranslations.AddRange(uniqueAccessories.Language.Translations);
-                }
+                var allTranslations = new Dictionary<string, string>(numberOfTranslations);
+                allTranslations.AddRange(gems.Language.Translations);
+                allTranslations.AddRange(uniqueWeapons.Language.Translations);
+                allTranslations.AddRange(uniqueArmour.Language.Translations);
+                allTranslations.AddRange(uniqueAccessories.Language.Translations);
 
                 //var language = new Language()
                 //{
@@ -82,6 +76,7 @@ namespace HeistItemFinder.Realizations
                     Lines = allItems.ToArray(),
                     Language = null
                 };
+                await WriteToFile(equipmentResponse);
                 return equipmentResponse;
             }
             return ReadFromFile();
@@ -96,6 +91,7 @@ namespace HeistItemFinder.Realizations
             var response = await _client.GetAsync(
                 string.Format(_poeNinjaRequestTemplate, "SkillGem", Properties.Settings.Default.Language));
             var json = await response.Content.ReadFromJsonAsync<SkillGemResponse>();
+            //Exclude corrupted gems. They are not included in the heist mode.
             json.Lines = json.Lines.Where(x => x.Corrupted == false).ToArray();
             return json;
         }
@@ -119,6 +115,12 @@ namespace HeistItemFinder.Realizations
             var response = await _client.GetAsync(
                 string.Format(_poeNinjaRequestTemplate, "UniqueAccessory", Properties.Settings.Default.Language));
             return await response.Content.ReadFromJsonAsync<EquipmentResponse>();
+        }
+
+        private async Task<string> ReadLanguageTranslations()
+        {
+            var path = "";
+            return path;
         }
 
 

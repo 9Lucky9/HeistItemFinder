@@ -43,9 +43,9 @@ namespace HeistItemFinder.MVVM.ViewModels
         public SettingsViewModel()
         {
             _keyCombination = Properties.Settings.Default.SearchKeysCombination;
-            KeysCombination = 
+            KeysCombination =
                 SettingsHelper.GetKeysFromSettings(Properties.Settings.Default.SearchKeysCombination);
-            _displayedCurrency = 
+            _displayedCurrency =
                 (CurrencyEnum)Properties.Settings.Default.DisplayedCurrencyEnum;
         }
     }

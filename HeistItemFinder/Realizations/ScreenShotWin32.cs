@@ -2,8 +2,8 @@
 using HeistItemFinder.Win32;
 using System;
 using System.Drawing;
-using static HeistItemFinder.Win32.User32;
 using static HeistItemFinder.Win32.GDI32;
+using static HeistItemFinder.Win32.User32;
 
 
 namespace HeistItemFinder.Realizations

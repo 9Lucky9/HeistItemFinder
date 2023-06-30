@@ -7,17 +7,12 @@ using HeistItemFinder.Realizations;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
-using static System.Net.WebRequestMethods;
 
 namespace HeistItemFinder.MVVM.ViewModels
 {
@@ -33,7 +28,7 @@ namespace HeistItemFinder.MVVM.ViewModels
 
         private const int POPUP_TIME = 7;
 
-        public ObservableCollection<HistoryItem> HistoryItems { get; } 
+        public ObservableCollection<HistoryItem> HistoryItems { get; }
             = new ObservableCollection<HistoryItem>();
 
         /// <summary>
@@ -158,7 +153,7 @@ namespace HeistItemFinder.MVVM.ViewModels
             var img = _iScreenShotWin32.CaptureScreen();
             var testImg = new Bitmap("C:\\Users\\pro19\\Downloads\\EnglishTest.png");
             var processedImage = _iOpenCvVision.ProcessImage(testImg);
-            SaveTestResults(processedImage);
+            //SaveTestResults(new Bitmap(img));
             //var img = new Bitmap("C:\\Users\\pro19\\OneDrive\\Рабочий стол\\OpenCvTests\\638205227385097514.bmp");
             var text = _iTextFromImageReader.GetTextFromImage(processedImage);
             var result = ItemFinder.FindLastListedItem(_equipmentResponse, text);
@@ -196,27 +191,27 @@ namespace HeistItemFinder.MVVM.ViewModels
         private HistoryItem GetHistoryItem(BaseEquipment baseEquipment)
         {
             var icon = new Uri(baseEquipment.Icon);
-            switch((CurrencyEnum)Properties.Settings.Default.DisplayedCurrencyEnum)
+            switch ((CurrencyEnum)Properties.Settings.Default.DisplayedCurrencyEnum)
             {
                 case CurrencyEnum.Chaos:
                     return new HistoryItem(
-                        icon, 
-                        baseEquipment.Name, 
-                        CurrencyEnum.Chaos, 
+                        icon,
+                        baseEquipment.Name,
+                        CurrencyEnum.Chaos,
                         baseEquipment.ChaosValue);
                 case CurrencyEnum.Divine:
                     return new HistoryItem(
-                        icon, 
-                        baseEquipment.Name, 
-                        CurrencyEnum.Divine, 
+                        icon,
+                        baseEquipment.Name,
+                        CurrencyEnum.Divine,
                         baseEquipment.DivineValue);
                 case CurrencyEnum.Smart:
-                    if(baseEquipment.ChaosValue > 220)
+                    if (baseEquipment.ChaosValue > 220)
                     {
                         return new HistoryItem(
-                            icon, 
-                            baseEquipment.Name, 
-                            CurrencyEnum.Divine, 
+                            icon,
+                            baseEquipment.Name,
+                            CurrencyEnum.Divine,
                             baseEquipment.DivineValue);
                     }
                     else

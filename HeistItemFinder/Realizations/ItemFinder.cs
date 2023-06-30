@@ -12,7 +12,7 @@ namespace HeistItemFinder.Realizations
             string imageText,
             bool applyModificators = false)
         {
-            if(equipmentResponse.Language is not null)
+            if (equipmentResponse.Language is not null)
             {
                 var formattedItemName = FormatTextByLines(imageText).First();
                 var items = equipmentResponse.Lines;
