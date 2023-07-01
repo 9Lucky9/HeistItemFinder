@@ -117,7 +117,7 @@ namespace HeistItemFinder.MVVM.ViewModels
                 if (key.Value == false)
                     return;
             }
-            await FindItemPrice();
+            await SearchItem();
         }
 
         private async Task SearchItem()
@@ -141,7 +141,7 @@ namespace HeistItemFinder.MVVM.ViewModels
         private EquipmentResponse _equipmentResponse;
         private async Task<EquipmentResponse> ParseItems()
         {
-            return (await _iPoeNinjaParser.ParseItems());
+            return await _iPoeNinjaParser.ParseItems();
         }
 
         private async Task<BaseEquipment> FindItemPrice()
@@ -151,7 +151,7 @@ namespace HeistItemFinder.MVVM.ViewModels
                 _equipmentResponse = await ParseItems();
             }
             var img = _iScreenShotWin32.CaptureScreen();
-            var testImg = new Bitmap("C:\\Users\\pro19\\Downloads\\EnglishTest.png");
+            var testImg = new Bitmap("C:\\Users\\pro19\\Downloads\\EnglishTest2.png");
             var processedImage = _iOpenCvVision.ProcessImage(testImg);
             //SaveTestResults(new Bitmap(img));
             //var img = new Bitmap("C:\\Users\\pro19\\OneDrive\\Рабочий стол\\OpenCvTests\\638205227385097514.bmp");
