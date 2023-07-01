@@ -27,22 +27,4 @@
     <ProjectReference Include="..\HeistItemFinder\HeistItemFinder.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="TestImages\EnglishTest1.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="TestImages\EnglishTest2.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="TestImages\EnglishTest3.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="TestImages\EnglishTest4.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="TestImages\EnglishTest5.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
 </Project>
