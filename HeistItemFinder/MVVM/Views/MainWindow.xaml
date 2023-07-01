@@ -24,12 +24,8 @@
 
         <TextBlock Text="Heist item finder" Grid.Column="0" Grid.Row="0" FontSize="50"/>
 
-        <Grid x:Name="Language" Grid.Row="0" Grid.Column="1">
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0" Text="In-game Language:" FontSize="25"/>
+            <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1">
+                <TextBlock VerticalAlignment="Center" Grid.Row="0" Text="In-game Language:" FontSize="25"/>
             <ComboBox Grid.Row="1" x:Name="testik" IsReadOnly="True" 
                   ItemsSource="{Binding Images}"
                   SelectedItem="{Binding SelectedLanguageImage}">
@@ -38,9 +34,9 @@
                         <Image Source="{Binding Uri}"/>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
-
             </ComboBox>
-        </Grid>
+        </StackPanel>
+
 
         <views:SettingsView Grid.Column="1" Grid.Row="1" DataContext="{Binding SettingsViewModel}"/>
 
