@@ -1,4 +1,5 @@
-﻿using HeistItemFinder.Interfaces;
+﻿using HeistItemFinder.Exceptions;
+using HeistItemFinder.Interfaces;
 using HeistItemFinder.Models.PoeNinja;
 using HeistItemFinder.MVVM.Core;
 using HeistItemFinder.MVVM.Models;
@@ -16,7 +17,7 @@ using System.Windows.Threading;
 
 namespace HeistItemFinder.MVVM.ViewModels
 {
-    internal class SearchViewModel : ObservableObject
+    public class SearchViewModel : ObservableObject
     {
         private readonly IPoeItemsParser _iPoeNinjaParser;
         private readonly IPoeTradeParser _iPoeTradeParser;
@@ -25,8 +26,12 @@ namespace HeistItemFinder.MVVM.ViewModels
         private readonly IScreenShotWin32 _iScreenShotWin32;
         private readonly IKeyboardHook _iKeyboardHook;
         private readonly Popup _popup;
+        private ErrorPopup _errorPopup;
+
+        public string ErrorMessage { get; set; }
 
         private const int POPUP_TIME = 7;
+        private const int ERROR_POPUP_TIME = 4;
 
         public ObservableCollection<HistoryItem> HistoryItems { get; }
             = new ObservableCollection<HistoryItem>();
@@ -53,7 +58,8 @@ namespace HeistItemFinder.MVVM.ViewModels
             ITextFromImageReader iTextFromImageReader,
             IScreenShotWin32 iScreenShotHook,
             IKeyboardHook iKeyboardHook,
-            Popup popup)
+            Popup popup,
+            ErrorPopup errorPopup)
         {
             _iPoeTradeParser = iPoeTradeParser;
             _iPoeNinjaParser = iPoeItemsParser;
@@ -65,6 +71,7 @@ namespace HeistItemFinder.MVVM.ViewModels
             _iKeyboardHook.OnKeyPressed += KeyboardHook_OnKeyPressed;
             _iKeyboardHook.OnKeyUnpressed += KeyboardHook_OnKeyUnpressed;
             _iKeyboardHook.HookKeyboard();
+            _errorPopup = errorPopup;
             _popup = popup;
             _popup.DataContext = this;
         }
@@ -117,17 +124,9 @@ namespace HeistItemFinder.MVVM.ViewModels
                 if (key.Value == false)
                     return;
             }
-            await SearchItem();
-        }
+            await FindItemDev();
+            //await FindItem();
 
-        private async Task SearchItem()
-        {
-            var item = await FindItemPrice();
-            var popupTimer = new DispatcherTimer();
-            popupTimer.Interval = TimeSpan.FromSeconds(POPUP_TIME);
-            popupTimer.Tick += PopupTimer_Tick;
-            popupTimer.Start();
-            _popup.Show();
         }
 
         private void PopupTimer_Tick(object? sender, EventArgs e)
@@ -138,54 +137,74 @@ namespace HeistItemFinder.MVVM.ViewModels
             _popup.Hide();
         }
 
+        private void ErrorPopupTimer_Tick(object? sender, EventArgs e)
+        {
+            DispatcherTimer timer = (DispatcherTimer)sender;
+            timer.Stop();
+            timer.Tick -= PopupTimer_Tick;
+            _errorPopup.Hide();
+        }
+
         private EquipmentResponse _equipmentResponse;
         private async Task<EquipmentResponse> ParseItems()
         {
             return await _iPoeNinjaParser.ParseItems();
         }
 
-        private async Task<BaseEquipment> FindItemPrice()
+        private async Task<BaseEquipment> FindItem()
         {
-            if (_equipmentResponse == null)
+            try
             {
-                _equipmentResponse = await ParseItems();
+                if (_equipmentResponse == null)
+                {
+                    _equipmentResponse = await ParseItems();
+                }
+                var img = _iScreenShotWin32.CaptureScreen();
+                //var testImg = new Bitmap("C:\\Users\\pro19\\Downloads\\EnglishTest2.png");
+                var processedImage = _iOpenCvVision.ProcessImage(img);
+
+                //SaveTestResults(new Bitmap(img));
+                //var img = new Bitmap("C:\\Users\\pro19\\OneDrive\\Рабочий стол\\OpenCvTests\\638205227385097514.bmp");
+                var text = _iTextFromImageReader.GetTextFromImages(processedImage);
+                var result = ItemFinder.FindLastListedItem(_equipmentResponse, text);
+                var historyItem = GetHistoryItem(result);
+                HistoryItems.Add(historyItem);
+                var popupTimer = new DispatcherTimer();
+                popupTimer.Interval = TimeSpan.FromSeconds(POPUP_TIME);
+                popupTimer.Tick += PopupTimer_Tick;
+                popupTimer.Start();
+                _popup.Show();
+                return result;
             }
-            var img = _iScreenShotWin32.CaptureScreen();
-            var testImg = new Bitmap("C:\\Users\\pro19\\Downloads\\EnglishTest2.png");
-            var processedImage = _iOpenCvVision.ProcessImage(testImg);
-            //SaveTestResults(new Bitmap(img));
-            //var img = new Bitmap("C:\\Users\\pro19\\OneDrive\\Рабочий стол\\OpenCvTests\\638205227385097514.bmp");
-            var text = _iTextFromImageReader.GetTextFromImage(processedImage);
-            var result = ItemFinder.FindLastListedItem(_equipmentResponse, text);
-            var historyItem = GetHistoryItem(result);
-            HistoryItems.Add(historyItem);
-            return result;
+            catch (ImageNotRecognizedException ex)
+            {
+                //Bad source of image.
+                ErrorMessage = ex.Message;
+                ShowErrorPopup();
+            }
+            catch (NoTemplateMatchesException ex)
+            {
+                ErrorMessage = ex.Message;
+                ShowErrorPopup();
+            }
+            catch (ItemNotFoundException ex)
+            {
+                //Image were not found on poe ninja, or bad text recognition.
+                ErrorMessage = ex.Message;
+                ShowErrorPopup();
+            }
+
+            return null;
         }
 
-        /// <summary>
-        /// ONLY FOR TEST PURPOSES.
-        /// Method that saves image to disk.
-        /// </summary>
-        /// <param name="imageToSave"></param>
-        private void SaveTestResults(Bitmap imageToSave)
+        private void ShowErrorPopup()
         {
-            var desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            imageToSave.Save(
-                desktopPath + "\\OpenCvTests\\" + DateTime.Now.Ticks.ToString() + ".bmp");
-        }
-
-        private Bitmap BitmapImage2Bitmap(BitmapImage bitmapImage)
-        {
-            // BitmapImage bitmapImage = new BitmapImage(new Uri("../Images/test.png", UriKind.Relative));
-            using (MemoryStream outStream = new MemoryStream())
-            {
-                BitmapEncoder enc = new BmpBitmapEncoder();
-                enc.Frames.Add(BitmapFrame.Create(bitmapImage));
-                enc.Save(outStream);
-                Bitmap bitmap = new Bitmap(outStream);
-
-                return new Bitmap(bitmap);
-            }
+            _errorPopup.DataContext = this;
+            var popupTimer = new DispatcherTimer();
+            popupTimer.Interval = TimeSpan.FromSeconds(ERROR_POPUP_TIME);
+            popupTimer.Tick += ErrorPopupTimer_Tick;
+            popupTimer.Start();
+            _errorPopup.Show();
         }
 
         private HistoryItem GetHistoryItem(BaseEquipment baseEquipment)
@@ -225,5 +244,80 @@ namespace HeistItemFinder.MVVM.ViewModels
             }
             return null;
         }
+
+
+        #region ONLY FOR TEST PURPOSES
+        /// <summary>
+        /// ONLY FOR TEST PURPOSES.
+        /// Method that saves image to disk.
+        /// </summary>
+        /// <param name="imageToSave"></param>
+        private void SaveTestResults(Bitmap imageToSave)
+        {
+            var desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            imageToSave.Save(
+                desktopPath + "\\OpenCvTests\\" + DateTime.Now.Ticks.ToString() + ".bmp");
+        }
+
+        private async Task<BaseEquipment> FindItemDev()
+        {
+            try
+            {
+                if (_equipmentResponse == null)
+                {
+                    _equipmentResponse = await ParseItems();
+                }
+                var testImg = new Bitmap(
+                    "C:\\Users\\pro19\\OneDrive\\Рабочий стол\\OpenCvTests\\EnglishTest3.png");
+                var processedImages = _iOpenCvVision.ProcessImage(testImg);
+
+                //SaveTestResults(new Bitmap(img));
+                var text = _iTextFromImageReader.GetTextFromImages(processedImages);
+                var result = ItemFinder.FindLastListedItem(_equipmentResponse, text);
+                var historyItem = GetHistoryItem(result);
+                HistoryItems.Add(historyItem);
+                var popupTimer = new DispatcherTimer();
+                popupTimer.Interval = TimeSpan.FromSeconds(POPUP_TIME);
+                popupTimer.Tick += PopupTimer_Tick;
+                popupTimer.Start();
+                _popup.Show();
+                return result;
+            }
+            catch (ImageNotRecognizedException ex)
+            {
+                //Bad source of image.
+                ErrorMessage = ex.Message;
+                ShowErrorPopup();
+            }
+            catch (NoTemplateMatchesException ex)
+            {
+                ErrorMessage = ex.Message;
+                ShowErrorPopup();
+            }
+            catch (ItemNotFoundException ex)
+            {
+                //Image were not found on poe ninja, or bad text recognition.
+                ErrorMessage = ex.Message;
+                ShowErrorPopup();
+            }
+
+            return null;
+        }
+
+        private Bitmap BitmapImage2Bitmap(BitmapImage bitmapImage)
+        {
+            // BitmapImage bitmapImage = new BitmapImage(new Uri("../Images/test.png", UriKind.Relative));
+            using (MemoryStream outStream = new MemoryStream())
+            {
+                BitmapEncoder enc = new BmpBitmapEncoder();
+                enc.Frames.Add(BitmapFrame.Create(bitmapImage));
+                enc.Save(outStream);
+                Bitmap bitmap = new Bitmap(outStream);
+
+                return new Bitmap(bitmap);
+            }
+        }
+        #endregion
+
     }
 }
