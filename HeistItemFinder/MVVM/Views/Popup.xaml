@@ -10,7 +10,6 @@
         Title="Popup" Height="150" Width="400"
         Topmost="True"
         WindowStyle="None"
-        WindowStartupLocation="CenterScreen"
         d:DataContext="{d:DesignInstance Type=viewmodels:SearchViewModel, IsDesignTimeCreatable=True}">
 
     <Grid>
