@@ -4,6 +4,8 @@ namespace HeistItemFinder.Interfaces
 {
     public interface IItemFinder
     {
-        public BaseEquipment FindLastListedItem(EquipmentResponse equipmentResponse, string imageText);
+        public BaseEquipment FindLastListedItem(
+            EquipmentResponse equipmentResponse,
+            string textFromImage);
     }
 }
