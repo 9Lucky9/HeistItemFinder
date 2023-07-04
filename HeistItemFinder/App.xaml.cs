@@ -39,6 +39,7 @@ public partial class App : Application
                     DataContext = provider.GetRequiredService<SettingsViewModel>()
                 });
                 services.AddSingleton<Popup>(provider => new Popup());
+                services.AddSingleton<ErrorPopup>(provider => new ErrorPopup());
                 services.AddSingleton(provider =>
                 new SearchViewModel(
                     provider.GetRequiredService<IPoeTradeParser>(),
@@ -47,7 +48,8 @@ public partial class App : Application
                     provider.GetRequiredService<ITextFromImageReader>(),
                     provider.GetRequiredService<IScreenShotWin32>(),
                     provider.GetRequiredService<IKeyboardHook>(),
-                    provider.GetRequiredService<Popup>()));
+                    provider.GetRequiredService<Popup>(),
+                    provider.GetRequiredService<ErrorPopup>()));
                 services.AddSingleton<SearchView>(provider => new SearchView()
                 {
                     DataContext = provider.GetRequiredService<SearchViewModel>()
