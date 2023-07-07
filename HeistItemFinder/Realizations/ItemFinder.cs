@@ -77,14 +77,22 @@ namespace HeistItemFinder.Realizations
                 }
                 else
                 {
-                    var lastListedItems = items.Where(
-                        x => x.Name.Contains(formattedItemName, StringComparison.OrdinalIgnoreCase));
-                    var mininalPriceItem = lastListedItems.MinBy(x => x.ChaosValue);
-                    if(mininalPriceItem is null)
+                    var lastListedItems = items
+                        .Where(x => x.Name
+                        .Contains(formattedItemName, StringComparison.OrdinalIgnoreCase));
+                    if(!lastListedItems.Any())
+                    {
+                        var halfName = formattedItemName[..(formattedItemName.Length / 2)];
+                        lastListedItems = items
+                            .Where(x => x.Name
+                            .Contains(halfName, StringComparison.OrdinalIgnoreCase));
+                    }
+                    if(!lastListedItems.Any())
                     {
                         throw new ItemNotFoundException(
                             "Item were not found. Possibly due to lack of item on poe ninja or bad text input.");
                     }
+                    var mininalPriceItem = lastListedItems.MinBy(x => x.ChaosValue);
                     var equipment = new BaseEquipment()
                     {
                         Name = formattedItemName,
