@@ -17,7 +17,7 @@ namespace HeistItemFinder.Realizations
         private readonly Mat _temporary;
 
         private int _originalTemplateHeight;
-        private int _originaltemplateWidth;
+        private int _originalTemplateWidth;
 
         public OpenCvVision()
         {
@@ -42,71 +42,61 @@ namespace HeistItemFinder.Realizations
                 //Cv2.ImShow("Test", _image);
                 //Cv2.WaitKey();
 
-                //Group matches by identical Y coordinate.
-                //Then select groups where 2 points are present.
-                var groups = allMatches
-                    .GroupBy(x => x.Y)
-                    .Where(x => x.Count() == 2);
-                if(!groups.Any())
+                //Group matches by Y coordinate.
+                //By selecting points where Y coordinate is within small deviation.
+                var grouppedPoints = allMatches
+                    .Select(x => allMatches
+                    .Where(y => x.Y - y.Y <= 2));
+
+                if(!grouppedPoints.Any())
                     throw new NoTemplateMatchesException(
                         "No matches on the image were found, try again.");
 
-                var min = new OpenCvSharp.Point();
-                var max = new OpenCvSharp.Point();
-
-                foreach(var group in groups)
+                var resultImages = new List<Bitmap>();
+                foreach (var group in grouppedPoints)
                 {
-                    //TODO: fill with points
+                    var firstPoint = group.First();
+                    var lastPoint = group.Last();
+                    var min = new OpenCvSharp.Point();
+                    var max = new OpenCvSharp.Point();
+
+                    if (firstPoint.X < lastPoint.X)
+                    {
+                        min = firstPoint;
+                        max = lastPoint;
+                    }
+                    else
+                    {
+                        min = lastPoint;
+                        max = firstPoint;
+                    }
+
+                    //Increase height of starting point by template height.
+                    min.Y -= _template.Height;
+
+                    //Size of rectangle
+                    var rectWidth = max.X - min.X + _originalTemplateWidth;
+                    var rectHeight = _originalTemplateHeight;
+
+                    var rect = new Rect(
+                        min,
+                        new OpenCvSharp.Size(rectWidth, rectHeight));
+
+                    var result = _image[rect];
+                    var resultGray = result.CvtColor(ColorConversionCodes.BGR2GRAY);
+                    var binarized = resultGray.Threshold(86, 255, ThresholdTypes.Binary);
+                    //Cv2.ImShow("Test", binarized);
+                    //Cv2.WaitKey();
+                    var bitmap = binarized.ToBitmap();
+                    resultImages.Add(bitmap);
                 }
-
-                var points = groups.First();
-                var firstPoint = points.First();
-                var lastPoint = points.Last();
-                if (firstPoint.X < lastPoint.X)
-                {
-                    min = firstPoint;
-                    max = lastPoint;
-                }
-                else
-                {
-                    min = lastPoint;
-                    max = firstPoint;
-                }
-                
-
-                //Crop image
-                var rectWidth = max.X - min.X + _originaltemplateWidth;
-                //var tabHeight = min.Y + _originalTemplateHeight;
-                var rectHeight = _originalTemplateHeight;
-
-                //Increase height of starting point by template height.
-                min.Y -= _template.Height;
-
-                var rect = new Rect(
-                    min,
-                    new OpenCvSharp.Size(rectWidth, rectHeight));
-
-                var result = _image[rect];
-
-                //TODO: Convert
-                foreach(var point in points)
-                {
-
-                }
-                var resultGray = result.CvtColor(ColorConversionCodes.BGR2GRAY);
-                var binarized = resultGray.Threshold(86, 255, ThresholdTypes.Binary);
-                Cv2.ImShow("Test", binarized);
-                Cv2.WaitKey();
-                var bitmap = binarized.ToBitmap();
-
-                return bitmap;
+                return resultImages;
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 throw new ImageNotRecognizedException(
                     "Image processing have failed. Probably due to bad image source.");
             }
-
         }
 
         /// <summary>
@@ -138,10 +128,8 @@ namespace HeistItemFinder.Realizations
                     templateMatchPoints.Add(originalPoint);
 
                     _originalTemplateHeight = Convert.ToInt32(_template.Height * 100 / scale);
-                    _originaltemplateWidth = Convert.ToInt32(_template.Width * 100 / scale);
-                    //DrawRectanglesOnImage(originalPoint, originalWidthPoint, scale);
-                    //Cv2.ImShow("Test", _image);
-                    //Cv2.WaitKey();
+                    _originalTemplateWidth = Convert.ToInt32(_template.Width * 100 / scale);
+                    //DrawRectangleOnPoint(originalPoint, originalWidthPoint, scale);
 
                     //Draw black rectangle on found match to not find it again.
                     var blackRect = new Rect(
@@ -171,10 +159,10 @@ namespace HeistItemFinder.Realizations
         }
 
         /// <summary>
-        /// Draw rectangles on the original image.
-        /// For test purposes only.
+        /// FOR TEST PURPOSES ONLY.
+        /// Draw rectangles on finded point on the original image.
         /// </summary>
-        private void DrawRectanglesOnImage(
+        private void DrawRectangleOnPoint(
             OpenCvSharp.Point originalPoint,
             float originalWidthPoint,
             float scale)

@@ -15,7 +15,7 @@ namespace HeistItemFinder.Realizations
         private List<char> _badCharacters = new List<char>()
         {
             '_', '-', '—',
-            '!', '?', ',',
+            '?', ',',
             '#', '*', '&',
             '<', '>', '$',
             '%', '@',
@@ -26,35 +26,22 @@ namespace HeistItemFinder.Realizations
         public string GetTextFromImages(List<Bitmap> images)
         {
             var allText = new StringBuilder();
-            foreach (var img in images)
-            {
-                allText.Append(GetTextFromImage(img));
-            }
-
-            return allText.ToString();
-        }
-
-        /// <summary>
-        /// Get text from an image
-        /// and clear it using <see cref="ClearText"/>
-        /// </summary>
-        /// <returns>All text from an image.</returns>
-        private string GetTextFromImage(Bitmap image)
-        {
-            string allText = string.Empty;
             using (var engine = new TesseractEngine(@"./testdata",
                 Properties.Settings.Default.Language,
                 EngineMode.Default))
             {
-                using (var pix = PixConverter.ToPix(image))
+                foreach (var img in images)
                 {
-                    using (var page = engine.Process(pix))
+                    using (var pix = PixConverter.ToPix(img))
                     {
-                        allText = page.GetText();
+                        using (var page = engine.Process(pix))
+                        {
+                            allText.AppendLine(page.GetText());
+                        }
                     }
                 }
             }
-            return ClearText(allText);
+            return ClearText(allText.ToString());
         }
 
         /// <summary>
