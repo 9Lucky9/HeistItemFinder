@@ -13,5 +13,8 @@ namespace HeistItemFinder.UnitTests.MVVM.ViewModels
         private readonly Mock<IScreenShotWin32> _iScreenShotWin32;
         private readonly Mock<IKeyboardHook> _iKeyboardHook;
         private readonly Popup _popup;
+        private readonly ErrorPopup _errorPopup;
+
+
     }
 }
