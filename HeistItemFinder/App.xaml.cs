@@ -24,6 +24,7 @@ public partial class App : Application
                 services.AddTransient<ITextFromImageReader, TextFromImageReader>();
                 services.AddSingleton<IScreenShotWin32, ScreenShotWin32>();
                 services.AddSingleton<IKeyboardHook, KeyboardHook>();
+                services.AddTransient<IItemFinder, ItemFinder>();
 
                 //Add ViewModels
                 services.AddSingleton<SettingsViewModel>();
@@ -48,8 +49,10 @@ public partial class App : Application
                     provider.GetRequiredService<ITextFromImageReader>(),
                     provider.GetRequiredService<IScreenShotWin32>(),
                     provider.GetRequiredService<IKeyboardHook>(),
+                    provider.GetRequiredService<IItemFinder>(),
                     provider.GetRequiredService<Popup>(),
-                    provider.GetRequiredService<ErrorPopup>()));
+                    provider.GetRequiredService<ErrorPopup>()
+                    ));
                 services.AddSingleton<SearchView>(provider => new SearchView()
                 {
                     DataContext = provider.GetRequiredService<SearchViewModel>()
@@ -67,6 +70,9 @@ public partial class App : Application
 
     protected override async void OnExit(ExitEventArgs e)
     {
+        //Unhook keyboard
+        var keyHook = AppHost.Services.GetRequiredService<IKeyboardHook>();
+        keyHook.UnHookKeyboard();
         await AppHost.StopAsync();
         base.OnExit(e);
     }
