@@ -13,7 +13,7 @@
     <Grid>
         <StackPanel Grid.Column="0" Grid.Row="1">
             <TextBlock x:Name="SearchHistory_title" Text="Search history:" FontSize="25"/>
-            <ListView MinHeight="400" ItemsSource="{Binding HistoryItems}">
+            <ListView ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="True" MinHeight="400" ItemsSource="{Binding HistoryItems}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <WrapPanel>
