@@ -4,7 +4,6 @@ using HeistItemFinder.Models.PoeNinja;
 using HeistItemFinder.MVVM.Core;
 using HeistItemFinder.MVVM.Models;
 using HeistItemFinder.MVVM.Views;
-using HeistItemFinder.Realizations;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -12,10 +11,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Net.Http;
-using System.Security.Policy;
 using System.Threading.Tasks;
-using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
@@ -30,6 +26,7 @@ namespace HeistItemFinder.MVVM.ViewModels
         private readonly ITextFromImageReader _iTextFromImageReader;
         private readonly IScreenShotWin32 _iScreenShotWin32;
         private readonly IKeyboardHook _iKeyboardHook;
+        private readonly IItemFinder _iItemFinder;
         private readonly Popup _popup;
         private ErrorPopup _errorPopup;
 
@@ -63,6 +60,7 @@ namespace HeistItemFinder.MVVM.ViewModels
             ITextFromImageReader iTextFromImageReader,
             IScreenShotWin32 iScreenShotHook,
             IKeyboardHook iKeyboardHook,
+            IItemFinder iItemFinder,
             Popup popup,
             ErrorPopup errorPopup)
         {
@@ -72,6 +70,7 @@ namespace HeistItemFinder.MVVM.ViewModels
             _iTextFromImageReader = iTextFromImageReader;
             _iScreenShotWin32 = iScreenShotHook;
             _iKeyboardHook = iKeyboardHook;
+            _iItemFinder = iItemFinder;
 
             _iKeyboardHook.OnKeyPressed += KeyboardHook_OnKeyPressed;
             _iKeyboardHook.OnKeyUnpressed += KeyboardHook_OnKeyUnpressed;
@@ -130,9 +129,8 @@ namespace HeistItemFinder.MVVM.ViewModels
                     return;
             }
             //OpenBrowser();
-            //await FindItemDev();
-            await FindItem();
-
+            await FindItemDev();
+            //await FindItem();
         }
 
         private void PopupTimer_Tick(object? sender, EventArgs e)
@@ -172,7 +170,7 @@ namespace HeistItemFinder.MVVM.ViewModels
                 //SaveTestResults(new Bitmap(img));
                 //var img = new Bitmap("C:\\Users\\pro19\\OneDrive\\Рабочий стол\\OpenCvTests\\638205227385097514.bmp");
                 var text = _iTextFromImageReader.GetTextFromImages(processedImage);
-                var result = ItemFinder.FindLastListedItem(_equipmentResponse, text);
+                var result = _iItemFinder.FindLastListedItem(_equipmentResponse, text);
                 var historyItem = GetHistoryItem(result);
                 HistoryItems.Add(historyItem);
                 var popupTimer = new DispatcherTimer();
@@ -325,12 +323,12 @@ namespace HeistItemFinder.MVVM.ViewModels
                     _equipmentResponse = await ParseItems();
                 }
                 var testImg = new Bitmap(
-                    "C:\\Users\\pro19\\OneDrive\\Рабочий стол\\OpenCvTests\\EnglishTest3.png");
+                    "C:\\Users\\pro19\\OneDrive\\Рабочий стол\\OpenCvTests\\EnglishTest10.png");
                 var processedImages = _iOpenCvVision.ProcessImage(testImg);
 
                 //SaveTestResults(new Bitmap(img));
                 var text = _iTextFromImageReader.GetTextFromImages(processedImages);
-                var result = ItemFinder.FindLastListedItem(_equipmentResponse, text);
+                var result = _iItemFinder.FindLastListedItem(_equipmentResponse, text);
                 var historyItem = GetHistoryItem(result);
                 HistoryItems.Add(historyItem);
                 var popupTimer = new DispatcherTimer();

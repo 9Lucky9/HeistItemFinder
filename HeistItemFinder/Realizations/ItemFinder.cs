@@ -1,4 +1,5 @@
 ﻿using HeistItemFinder.Exceptions;
+using HeistItemFinder.Interfaces;
 using HeistItemFinder.Models.PoeNinja;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Linq;
 
 namespace HeistItemFinder.Realizations
 {
-    public static class ItemFinder
+    public class ItemFinder : IItemFinder
     {
         //TODO: To improve confidence of text
         //      apply correction based on existing keywords
@@ -32,7 +33,7 @@ namespace HeistItemFinder.Realizations
         /// <param name="equipmentResponse">Parsed items.</param>
         /// <param name="textFromImage">Text from an image</param>
         /// <returns>Last listed item with minimal price.</returns>
-        public static BaseEquipment FindLastListedItem(
+        public BaseEquipment FindLastListedItem(
             EquipmentResponse equipmentResponse,
             string textFromImage)
         {
