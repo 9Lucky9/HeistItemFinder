@@ -25,7 +25,7 @@ namespace HeistItemFinder.Realizations
             // get te hDC of the target window
             IntPtr hdcSrc = GetWindowDC(handle);
             // get the size
-            RECT windowRect = new RECT();
+            var windowRect = new RECT();
             GetWindowRect(handle, out windowRect);
             int width = windowRect.Right - windowRect.Left;
             int height = windowRect.Bottom - windowRect.Top;
