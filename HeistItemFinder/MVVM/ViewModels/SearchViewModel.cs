@@ -5,12 +5,17 @@ using HeistItemFinder.MVVM.Core;
 using HeistItemFinder.MVVM.Models;
 using HeistItemFinder.MVVM.Views;
 using HeistItemFinder.Realizations;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Net.Http;
+using System.Security.Policy;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
@@ -124,8 +129,9 @@ namespace HeistItemFinder.MVVM.ViewModels
                 if (key.Value == false)
                     return;
             }
-            await FindItemDev();
-            //await FindItem();
+            //OpenBrowser();
+            //await FindItemDev();
+            await FindItem();
 
         }
 
@@ -257,6 +263,57 @@ namespace HeistItemFinder.MVVM.ViewModels
             var desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             imageToSave.Save(
                 desktopPath + "\\OpenCvTests\\" + DateTime.Now.Ticks.ToString() + ".bmp");
+        }
+
+        private void OpenBrowser()
+        {
+            var defaultBrowserPath = GetSystemDefaultBrowserPath();
+            var htmlFile = 
+                AppDomain.CurrentDomain.BaseDirectory + "Realizations\\OpenPoeTrade.html";
+            var destinationurl = "C:\\Users\\pro19\\source\\repos\\HeistItemFinder\\HeistItemFinder\\Realizations\\OpenPoeTrade.html";
+            var sInfo = new ProcessStartInfo()
+            {
+                FileName = defaultBrowserPath,
+                Arguments = htmlFile,
+                UseShellExecute = true,
+            };
+            Process.Start(sInfo);
+        }
+
+        private string GetSystemDefaultBrowserPath()
+        {
+            const string userChoice = @"Software\Microsoft\Windows\Shell\Associations\UrlAssociations\http\UserChoice";
+            var browserPath = "";
+            using (var userChoiceKey = Registry.CurrentUser.OpenSubKey(userChoice))
+            {
+                const string exeSuffix = ".exe";
+                object progIdValue = userChoiceKey.GetValue("Progid");
+
+                string path = progIdValue + @"\shell\open\command";
+                using (RegistryKey pathKey = Registry.ClassesRoot.OpenSubKey(path))
+                {
+                    if (pathKey == null)
+                    {
+                        return "";
+                    }
+
+                    // Trim parameters.
+                    try
+                    {
+                        path = pathKey.GetValue(null).ToString().ToLower().Replace("\"", "");
+                        if (!path.EndsWith(exeSuffix))
+                        {
+                            path = path.Substring(0, path.LastIndexOf(exeSuffix, StringComparison.Ordinal) + exeSuffix.Length);
+                            browserPath = path;
+                        }
+                    }
+                    catch
+                    {
+                        // Assume the registry value is set incorrectly, or some funky browser is used which currently is unknown.
+                    }
+                }
+            }
+            return browserPath;
         }
 
         private async Task<BaseEquipment> FindItemDev()
