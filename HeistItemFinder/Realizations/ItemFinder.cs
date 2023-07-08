@@ -96,7 +96,7 @@ namespace HeistItemFinder.Realizations
                     var mininalPriceItem = lastListedItems.MinBy(x => x.ChaosValue);
                     var equipment = new BaseEquipment()
                     {
-                        Name = formattedItemName,
+                        Name = mininalPriceItem.Name,
                         ChaosValue = mininalPriceItem.ChaosValue,
                         DivineValue = mininalPriceItem.DivineValue,
                         Icon = mininalPriceItem.Icon
