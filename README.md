@@ -2,7 +2,7 @@
 Search items in path of exile heist mode without opening browser and manually typing item name
 
 **Video demonstration:**
-
+https://www.youtube.com/watch?v=Vco8npopcOk
 
 **Requirements:**
 Win 10 x86, x64, internet connection.
