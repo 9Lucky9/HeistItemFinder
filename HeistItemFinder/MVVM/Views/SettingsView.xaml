@@ -22,8 +22,8 @@
         </Grid.RowDefinitions>
 
         <TextBlock Text="Settings:" FontSize="25"/>
-        <Border VerticalAlignment="Bottom" BorderBrush="Black"
-                BorderThickness="1"/>
+        <Border VerticalAlignment="Bottom" BorderBrush="Gray"
+                BorderThickness="0.5"/>
 
         <WrapPanel Orientation="Vertical" Grid.Row="1">
             <TextBlock x:Name="testiche" Text="Search hotkey:" FontSize="25"/>
