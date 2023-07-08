@@ -13,6 +13,7 @@ namespace HeistItemFinder
 
         private void Window_Closing(object sender, EventArgs e)
         {
+            Application.Current.Shutdown();
             Settings.Default.Save();
         }
     }

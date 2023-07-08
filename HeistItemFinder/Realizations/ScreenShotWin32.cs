@@ -2,13 +2,13 @@
 using HeistItemFinder.Win32;
 using System;
 using System.Drawing;
-using static HeistItemFinder.Win32.Winuser;
 using static HeistItemFinder.Win32.GDI32;
+using static HeistItemFinder.Win32.User32;
 
 
 namespace HeistItemFinder.Realizations
 {
-    internal class ScreenShotWin32 : IScreenShotWin32
+    public class ScreenShotWin32 : IScreenShotWin32
     {
         public Image CaptureScreen()
         {
@@ -25,10 +25,10 @@ namespace HeistItemFinder.Realizations
             // get te hDC of the target window
             IntPtr hdcSrc = GetWindowDC(handle);
             // get the size
-            RECT windowRect = new RECT();
-            GetWindowRect(handle, ref windowRect);
-            int width = windowRect.right - windowRect.left;
-            int height = windowRect.bottom - windowRect.top;
+            var windowRect = new RECT();
+            GetWindowRect(handle, out windowRect);
+            int width = windowRect.Right - windowRect.Left;
+            int height = windowRect.Bottom - windowRect.Top;
             // create a device context we can copy to
             IntPtr hdcDest = CreateCompatibleDC(hdcSrc);
             // create a bitmap we can copy it to,
@@ -37,12 +37,12 @@ namespace HeistItemFinder.Realizations
             // select the bitmap object
             IntPtr hOld = SelectObject(hdcDest, hBitmap);
             // bitblt over
-            BitBlt(hdcDest, 0, 0, width, height, hdcSrc, 0, 0, TernaryRasterOperations.SRCCOPY);
+            BitBlt(hdcDest, 0, 0, width, height, hdcSrc, 0, 0, SRCCOPY);
             // restore selection
             SelectObject(hdcDest, hOld);
             // clean up
             DeleteDC(hdcDest);
-            Winuser.ReleaseDC(handle, hdcSrc);
+            ReleaseDC(handle, hdcSrc);
 
             // get a .NET image object for it
             Image img = Image.FromHbitmap(hBitmap);

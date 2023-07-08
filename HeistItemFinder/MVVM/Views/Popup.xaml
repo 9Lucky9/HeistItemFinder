@@ -3,13 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:HeistItemFinder.MVVM.Views"
+        xmlns:local="clr-namespace:HeistItemFinder.MVVM"
+        xmlns:models="clr-namespace:HeistItemFinder.MVVM.Models"
         xmlns:viewmodels="clr-namespace:HeistItemFinder.MVVM.ViewModels" 
         mc:Ignorable="d"
         Title="Popup" Height="150" Width="400"
         Topmost="True"
         WindowStyle="None"
-        WindowStartupLocation="CenterScreen"
         d:DataContext="{d:DesignInstance Type=viewmodels:SearchViewModel, IsDesignTimeCreatable=True}">
 
     <Grid>
@@ -31,10 +31,33 @@
             </ListView.ItemsPanel>
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
                         <Image Source="{Binding ImageUrl}" Height="50" Width="50"/>
-                        <TextBlock Text="{Binding ChaosValue}" FontSize="16"/>
-                    </StackPanel>
+                        <StackPanel Orientation="Horizontal" Grid.Row="1">
+                            <TextBlock Text="{Binding Value}" FontSize="16" VerticalAlignment="Center"/>
+                            <Image Height="25" Width="25">
+                                <Image.Style>
+                                    <Style TargetType="Image">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding CurrencyType}" Value="{x:Static models:CurrencyEnum.Chaos}">
+                                                <Setter Property="Source" Value="/Assets/Currency/Chaos.png"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding CurrencyType}" Value="{x:Static models:CurrencyEnum.Divine}">
+                                                <Setter Property="Source" Value="/Assets/Currency/Divine.png"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Image.Style>
+                            </Image>
+                        </StackPanel>
+                    </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

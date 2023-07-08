@@ -9,8 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Assets\Currency\CurrencyChaos.png" />
-    <None Remove="Assets\Currency\CurrencyDivine.png" />
+    <None Remove="Assets\Currency\Chaos.png" />
+    <None Remove="Assets\Currency\Divine.png" />
     <None Remove="Assets\Language images\br.png" />
     <None Remove="Assets\Language images\de.png" />
     <None Remove="Assets\Language images\en.png" />
@@ -35,8 +35,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Assets\Currency\CurrencyChaos.png" />
-    <Resource Include="Assets\Currency\CurrencyDivine.png" />
+    <Resource Include="Assets\Currency\Chaos.png" />
+    <Resource Include="Assets\Currency\Divine.png" />
     <Resource Include="Assets\Language images\br.png" />
     <Resource Include="Assets\Language images\de.png" />
     <Resource Include="Assets\Language images\es.png" />
@@ -92,6 +92,12 @@
     <None Update="Properties\Settings.settings">
       <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Realizations\OpenPoeTrade.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Realizations\OpenPoeTrade.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="testdata\de.traineddata">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

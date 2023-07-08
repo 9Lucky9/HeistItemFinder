@@ -1,5 +1,7 @@
 ﻿using HeistItemFinder.Interfaces;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Text;
 using Tesseract;
 
 namespace HeistItemFinder.Realizations
@@ -10,20 +12,50 @@ namespace HeistItemFinder.Realizations
         {
         }
 
-        public string GetTextFromImage(Bitmap image)
+        private List<char> _badCharacters = new List<char>()
         {
-            string allText = string.Empty;
-            using (var engine = new TesseractEngine(@"./testdata", Properties.Settings.Default.Language, EngineMode.Default))
+            '_', '-', '—',
+            '?', ',',
+            '#', '*', '&',
+            '<', '>', '$',
+            '%', '@',
+            '(', ')',
+        };
+
+        /// <inheritdoc/>
+        public string GetTextFromImages(List<Bitmap> images)
+        {
+            var allText = new StringBuilder();
+            using (var engine = new TesseractEngine(@"./testdata",
+                Properties.Settings.Default.Language,
+                EngineMode.Default))
             {
-                using (var img = PixConverter.ToPix(image))
+                foreach (var img in images)
                 {
-                    using (var page = engine.Process(img))
+                    using (var pix = PixConverter.ToPix(img))
                     {
-                        allText = page.GetText();
+                        using (var page = engine.Process(pix))
+                        {
+                            allText.AppendLine(page.GetText());
+                        }
                     }
                 }
             }
-            return allText;
+            return ClearText(allText.ToString());
+        }
+
+        /// <summary>
+        /// Replace all bad characters with space width character.
+        /// </summary>
+        /// <returns>Cleared text.</returns>
+        private string ClearText(string text)
+        {
+            var strBuilder = new StringBuilder(text);
+            foreach(var badChar in _badCharacters)
+            {
+                strBuilder.Replace(badChar, ' ');
+            }
+            return strBuilder.ToString();
         }
     }
 }

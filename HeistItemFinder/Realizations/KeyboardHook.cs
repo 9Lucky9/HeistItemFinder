@@ -3,7 +3,8 @@ using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows.Input;
-using static HeistItemFinder.Win32.Winuser;
+using static HeistItemFinder.Win32.Kernel32;
+using static HeistItemFinder.Win32.User32;
 
 namespace HeistItemFinder.Realizations
 {

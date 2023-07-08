@@ -1,9 +1,10 @@
-﻿using System.Drawing;
+﻿using System.Collections.Generic;
+using System.Drawing;
 
 namespace HeistItemFinder.Interfaces
 {
     public interface IOpenCvVision
     {
-        public Bitmap ProcessImage(Image image, Image template);
+        public List<Bitmap> ProcessImage(Image image);
     }
 }

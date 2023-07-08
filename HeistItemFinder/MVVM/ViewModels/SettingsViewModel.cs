@@ -5,7 +5,7 @@ using System.Windows.Input;
 
 namespace HeistItemFinder.MVVM.ViewModels
 {
-    internal class SettingsViewModel : ObservableObject
+    public class SettingsViewModel : ObservableObject
     {
         private string _keyCombination;
         public string KeyCombination
@@ -43,9 +43,9 @@ namespace HeistItemFinder.MVVM.ViewModels
         public SettingsViewModel()
         {
             _keyCombination = Properties.Settings.Default.SearchKeysCombination;
-            KeysCombination = 
+            KeysCombination =
                 SettingsHelper.GetKeysFromSettings(Properties.Settings.Default.SearchKeysCombination);
-            _displayedCurrency = 
+            _displayedCurrency =
                 (CurrencyEnum)Properties.Settings.Default.DisplayedCurrencyEnum;
         }
     }

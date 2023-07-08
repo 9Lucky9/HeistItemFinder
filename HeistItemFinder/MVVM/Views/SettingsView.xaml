@@ -3,34 +3,39 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:HeistItemFinder.MVVM.Views"
+             xmlns:local="clr-namespace:HeistItemFinder.MVVM"
              xmlns:models="clr-namespace:HeistItemFinder.MVVM.Models"
-             xmlns:helper="clr-namespace:HeistItemFinder.MVVM"
              xmlns:viewmodels="clr-namespace:HeistItemFinder.MVVM.ViewModels" 
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              d:DataContext="{d:DesignInstance Type=viewmodels:SettingsViewModel, IsDesignTimeCreatable=True}">
 
     <UserControl.Resources>
-        <helper:EnumToBooleanConverter x:Key="ComparisonConverter"/>
+        <local:EnumToBooleanConverter x:Key="ComparisonConverter"/>
     </UserControl.Resources>
     
     <Grid x:Name="SettingsGrid" Grid.Row="1" Grid.Column="1" >
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.5*"/>
-            <RowDefinition/>
-            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="0.15*"/>
+            <RowDefinition Height="0.4*"/>
+            <RowDefinition Height="0.9*"/>
         </Grid.RowDefinitions>
-        <WrapPanel Orientation="Vertical">
-            <Border VerticalAlignment="Bottom" BorderBrush="Black"/>
+
+        <TextBlock Text="Settings:" FontSize="25"/>
+        <Border VerticalAlignment="Bottom" BorderBrush="Gray"
+                BorderThickness="0.5"/>
+
+        <WrapPanel Orientation="Vertical" Grid.Row="1">
             <TextBlock x:Name="testiche" Text="Search hotkey:" FontSize="25"/>
             <TextBox x:Name="Hotkey_TextBox"
                      Text="{Binding KeyCombination}"
                      KeyUp="Hotkey_KeyUp" 
-                     GotFocus="Hotkey_GotFocus"  FontSize="25"/>
+                     GotFocus="Hotkey_GotFocus"
+                     LostFocus="Hotkey_LostFocus"
+                     FontSize="25"/>
         </WrapPanel>
         
-        <Grid x:Name="CurrencyGrid"  Grid.Row="1">
+        <Grid x:Name="CurrencyGrid"  Grid.Row="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.5*"/>
                 <RowDefinition/>
@@ -39,34 +44,41 @@
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0" Text="Displayed currency:" FontSize="20"/>
 
-            <WrapPanel Grid.Row="1" >
+            <StackPanel Orientation="Horizontal" Grid.Row="1" >
                 <RadioButton IsChecked="{
                     Binding Path=DisplayedCurrency,
                     Converter={StaticResource ComparisonConverter},
                     ConverterParameter={x:Static models:CurrencyEnum.Chaos}}" GroupName="Currency" FontSize="15" VerticalAlignment="Center"/>
-                <Image Source="/Assets/Currency/CurrencyChaos.png" Width="47" Height="47"/>
                 <TextBlock Text="Chaos" VerticalAlignment="Center" FontSize="20"/>
+                <Image Source="/Assets/Currency/Chaos.png" Width="47" Height="47"/>
                 
-            </WrapPanel>
+            </StackPanel>
 
-            <WrapPanel Grid.Row="2">
+            <StackPanel Orientation="Horizontal" Grid.Row="2">
                 <RadioButton IsChecked="{
                     Binding Path=DisplayedCurrency,
                     Converter={StaticResource ComparisonConverter},
                     ConverterParameter={x:Static models:CurrencyEnum.Divine}}" 
                              GroupName="Currency" FontSize="15" VerticalAlignment="Center"/>
-                <Image Source="/Assets/Currency/CurrencyDivine.png" Width="47" Height="47"/>
                 <TextBlock Text="Divine" VerticalAlignment="Center" FontSize="20"/>
-            </WrapPanel>
-            <WrapPanel Orientation="Vertical" Grid.Row="3">
+                <Image Source="/Assets/Currency/Divine.png" Width="47" Height="47"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Grid.Row="3">
                 <RadioButton 
+                    x:Name="RadioButton_Smart"
                     IsChecked="{
                     Binding Path=DisplayedCurrency,
                     Converter={StaticResource ComparisonConverter},
                     ConverterParameter={x:Static models:CurrencyEnum.Smart}}" 
-                     GroupName="Currency" Content="Smart" FontSize="20" VerticalAlignment="Center"/>
-                <TextBlock Text="Displays chaos if it less than 220 chaos and displays divine if it is bigger than 220 chaos" FontSize="10"/>
-            </WrapPanel>
+                    GroupName="Currency" 
+                    VerticalAlignment="Center"
+                    ToolTip="Display chaos if it less than 220 chaos and display divine if it is bigger than 220 chaos."/>
+                <TextBlock Text="Smart" VerticalAlignment="Center" FontSize="20"
+                           ToolTip="{Binding ElementName=RadioButton_Smart, Path=ToolTip}"/>
+                <TextBlock Text="?" FontSize="10"
+                           VerticalAlignment="Center"
+                           ToolTip="{Binding ElementName=RadioButton_Smart, Path=ToolTip}"/>
+            </StackPanel>
         </Grid>
     </Grid>
 </UserControl>
