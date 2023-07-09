@@ -14,9 +14,9 @@ Win 10 x86, x64, internet connection.
 Tech stack
 .Net 7.0, WPF, MVVM, IoC, DI, Service layer, OpenCV, tesseract.
 
-**Credits** 
+## Credits
 
-Thanks to people who made this projects that are used in my software:
+Thanks to people who made and contributed to this projects that are used in my software:
 
 **Copyright 2023 Rasmus**
 [Poe ninja](https://poe.ninja/)
