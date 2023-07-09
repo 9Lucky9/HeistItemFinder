@@ -62,7 +62,7 @@ namespace HeistItemFinder.Realizations
                         uniqueWeapons.Language.Translations.Count +
                         uniqueArmour.Language.Translations.Count +
                         uniqueAccessories.Language.Translations.Count;
-                var allTranslations = 
+                var allTranslations =
                     new Dictionary<string, string>(numberOfTranslations);
                 allTranslations.AddRange(gems.Language.Translations);
                 allTranslations.AddRange(uniqueWeapons.Language.Translations);

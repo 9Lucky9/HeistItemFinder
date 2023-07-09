@@ -129,8 +129,8 @@ namespace HeistItemFinder.MVVM.ViewModels
                     return;
             }
             //OpenBrowser();
-            await FindItemDev();
-            //await FindItem();
+            //await FindItemDev();
+            await FindItem();
         }
 
         private void PopupTimer_Tick(object? sender, EventArgs e)
@@ -266,7 +266,7 @@ namespace HeistItemFinder.MVVM.ViewModels
         private void OpenBrowser()
         {
             var defaultBrowserPath = GetSystemDefaultBrowserPath();
-            var htmlFile = 
+            var htmlFile =
                 AppDomain.CurrentDomain.BaseDirectory + "Realizations\\OpenPoeTrade.html";
             var destinationurl = "C:\\Users\\pro19\\source\\repos\\HeistItemFinder\\HeistItemFinder\\Realizations\\OpenPoeTrade.html";
             var sInfo = new ProcessStartInfo()

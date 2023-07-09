@@ -30,13 +30,13 @@ namespace HeistItemFinder.MVVM.ViewModels
         {
             Images = new List<LangItem>
             {
-                new LangItem("th"),
-                new LangItem("de"),
-                new LangItem("es"),
-                new LangItem("fr"),
-                new LangItem("br"),
-                new LangItem("kr"),
-                new LangItem("ru"),
+                //new LangItem("th"),
+                //new LangItem("de"),
+                //new LangItem("es"),
+                //new LangItem("fr"),
+                //new LangItem("br"),
+                //new LangItem("kr"),
+                //new LangItem("ru"),
                 new LangItem("en")
             };
         }
@@ -45,13 +45,13 @@ namespace HeistItemFinder.MVVM.ViewModels
         {
             Images = new List<LangItem>
             {
-                new LangItem("th"),
-                new LangItem("de"),
-                new LangItem("es"),
-                new LangItem("fr"),
-                new LangItem("br"),
-                new LangItem("kr"),
-                new LangItem("ru"),
+                //new LangItem("th"),
+                //new LangItem("de"),
+                //new LangItem("es"),
+                //new LangItem("fr"),
+                //new LangItem("br"),
+                //new LangItem("kr"),
+                //new LangItem("ru"),
                 new LangItem("en")
             };
             SettingsViewModel = settingsViewModel;

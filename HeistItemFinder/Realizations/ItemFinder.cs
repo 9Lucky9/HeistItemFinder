@@ -18,7 +18,7 @@ namespace HeistItemFinder.Realizations
         /// <summary>
         /// All unique keyword's to find.
         /// </summary>
-        private static IReadOnlyList<string> _itemKeyWords = new List<string>() 
+        private static IReadOnlyList<string> _itemKeyWords = new List<string>()
         {
             "divergent",
             "anomalous",
@@ -40,9 +40,9 @@ namespace HeistItemFinder.Realizations
             try
             {
                 var items = equipmentResponse.Lines;
-                foreach(var keyword in _itemKeyWords)
+                foreach (var keyword in _itemKeyWords)
                 {
-                    if(textFromImage.Contains(keyword, StringComparison.OrdinalIgnoreCase))
+                    if (textFromImage.Contains(keyword, StringComparison.OrdinalIgnoreCase))
                     {
                         var ind = textFromImage.IndexOf(keyword, StringComparison.OrdinalIgnoreCase);
                         textFromImage = textFromImage[ind..];
@@ -81,14 +81,14 @@ namespace HeistItemFinder.Realizations
                     var lastListedItems = items
                         .Where(x => x.Name
                         .Contains(formattedItemName, StringComparison.OrdinalIgnoreCase));
-                    if(!lastListedItems.Any())
+                    if (!lastListedItems.Any())
                     {
                         var halfName = formattedItemName[..(formattedItemName.Length / 2)];
                         lastListedItems = items
                             .Where(x => x.Name
                             .Contains(halfName, StringComparison.OrdinalIgnoreCase));
                     }
-                    if(!lastListedItems.Any())
+                    if (!lastListedItems.Any())
                     {
                         throw new ItemNotFoundException(
                             "Item were not found. Possibly due to lack of item on poe ninja or bad text input.");
@@ -109,7 +109,7 @@ namespace HeistItemFinder.Realizations
                 throw new ItemNotFoundException(
                     "Item were not found. Possibly due to lack of item on poe ninja or bad text input.");
             }
-            catch(Exception) 
+            catch (Exception)
             {
                 throw new ItemNotFoundException(
                     "Item were not found. Possibly due to lack of item on poe ninja or bad text input.");

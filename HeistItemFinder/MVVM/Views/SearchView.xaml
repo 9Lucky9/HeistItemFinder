@@ -11,16 +11,26 @@
              d:DataContext="{d:DesignInstance Type=viewmodels:SearchViewModel, IsDesignTimeCreatable=True}">
 
     <Grid>
-        <StackPanel Grid.Column="0" Grid.Row="1">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
             <TextBlock x:Name="SearchHistory_title" Text="Search history:" FontSize="25"/>
-            <ListView ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="True" MinHeight="400" ItemsSource="{Binding HistoryItems}">
-                <ListView.ItemTemplate>
+
+        <ScrollViewer Grid.Row="1">
+            <ItemsControl  ItemsSource="{Binding HistoryItems}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Vertical"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <WrapPanel>
-                            <Image Source="{Binding ImageUrl}" Height="90" Width="90"/>
-                            <TextBlock Text="{Binding Name}" VerticalAlignment="Center" Margin="0,0,10,0" />
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{Binding ImageUrl}" Height="80" Width="80"/>
+                            <TextBlock Text="{Binding Name}" VerticalAlignment="Center" Margin="0,0,10,0" FontSize="16"/>
                             <TextBlock Text="{Binding Value}" VerticalAlignment="Center" FontWeight="Bold"/>
-                            <Image>
+                            <Image Height="47" Width="47">
                                 <Image.Style>
                                     <Style TargetType="Image">
                                         <Style.Triggers>
@@ -34,10 +44,10 @@
                                     </Style>
                                 </Image.Style>
                             </Image>
-                        </WrapPanel>
+                        </StackPanel>
                     </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </StackPanel>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
     </Grid>
 </UserControl>

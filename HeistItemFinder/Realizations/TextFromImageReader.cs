@@ -51,7 +51,7 @@ namespace HeistItemFinder.Realizations
         private string ClearText(string text)
         {
             var strBuilder = new StringBuilder(text);
-            foreach(var badChar in _badCharacters)
+            foreach (var badChar in _badCharacters)
             {
                 strBuilder.Replace(badChar, ' ');
             }
