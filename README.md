@@ -26,4 +26,6 @@ Thanks to people who made this projects that are used in my software:
 
 **Windows Presentation Foundation** - https://github.com/dotnet/wpf
 
+All image assets belongs to the developers of the Path of Exile - Grinding Gear Games (GGG) - https://www.pathofexile.com/ https://www.grindinggear.com/
+
 Currently works with unusual gems and replicas. Thief's trinkets are planned to add.
