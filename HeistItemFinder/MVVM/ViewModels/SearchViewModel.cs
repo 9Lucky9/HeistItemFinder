@@ -129,8 +129,8 @@ namespace HeistItemFinder.MVVM.ViewModels
                     return;
             }
             //OpenBrowser();
-            await FindItemDev();
-            //await FindItem();
+            //await FindItemDev();
+            await FindItem();
         }
 
         private void PopupTimer_Tick(object? sender, EventArgs e)

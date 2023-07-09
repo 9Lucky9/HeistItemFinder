@@ -96,8 +96,8 @@ namespace HeistItemFinder.Realizations
                     using var binarized = resultGray.Threshold(86, 255, ThresholdTypes.Binary);
                     var bitmap = binarized.ToBitmap();
                     resultImages.Add(bitmap);
-                    Cv2.ImShow("Test", binarized);
-                    Cv2.WaitKey();
+                    //Cv2.ImShow("Test", binarized);
+                    //Cv2.WaitKey();
                 }
                 return resultImages;
             }
