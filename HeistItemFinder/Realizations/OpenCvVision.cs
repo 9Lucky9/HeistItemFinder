@@ -194,30 +194,5 @@ namespace HeistItemFinder.Realizations
                 TemplatePoint = template;
             }
         }
-
-        /// <summary>
-        /// FOR TEST PURPOSES ONLY.
-        /// Draw rectangles on finded point on the original image.
-        /// </summary>
-        private void DrawRectangleOnPoint(
-            Mat source,
-            Mat template,
-            OpenCvSharp.Point originalPoint,
-            float scale)
-        {
-            var r = new Rect(
-                originalPoint,
-                new OpenCvSharp.Size(
-                    template.Width * 100 / scale,
-                    template.Height * 100 / scale));
-
-            source.Rectangle(r, Scalar.Red);
-            source.PutText(
-                $"X:{originalPoint.X}, Y: {originalPoint.Y}",
-                originalPoint,
-                HersheyFonts.HersheyPlain, 2.0, Scalar.Green);
-            Cv2.ImShow("Test", source);
-            Cv2.WaitKey();
-        }
     }
 }
