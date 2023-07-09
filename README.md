@@ -18,11 +18,14 @@ Tech stack
 
 Thanks to people who made this projects that are used in my software:
 
-**Poe ninja** - https://poe.ninja/
+**Copyright 2023 Rasmus**
+[Poe ninja](https://poe.ninja/)
 
-**OpenCV wrapper for .NET** - https://github.com/shimat/opencvsharp
+**Copyright 2023 shimat**
+[OpenCV wrapper for .NET](https://github.com/shimat/opencvsharp)
 
-**.Net wrapper for tesseract-ocr** - https://github.com/charlesw/tesseract
+**Copyright 2023 Charles Weld**
+[.Net wrapper for tesseract-ocr](https://github.com/charlesw/tesseract)
 
 **Windows Presentation Foundation** - https://github.com/dotnet/wpf
 
