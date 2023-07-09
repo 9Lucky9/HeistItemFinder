@@ -18,8 +18,7 @@ Tech stack
 
 Thanks to people who made and contributed to this projects that are used in my software:
 
-**Copyright 2023 Rasmus**
-[Poe ninja](https://poe.ninja/)
+[Poe ninja](https://poe.ninja/) - **Copyright 2023 Rasmus**
 
 [OpenCV wrapper for .NET](https://github.com/shimat/opencvsharp) - 
 **Copyright 2023 shimat**
