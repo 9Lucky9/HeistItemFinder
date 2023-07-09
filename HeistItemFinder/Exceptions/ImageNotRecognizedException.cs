@@ -10,7 +10,7 @@ namespace HeistItemFinder.Exceptions
     {
         public ImageNotRecognizedException(string? message) : base(message)
         {
-            
+
         }
     }
 }

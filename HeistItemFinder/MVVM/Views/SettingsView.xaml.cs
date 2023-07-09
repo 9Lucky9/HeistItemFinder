@@ -34,7 +34,7 @@ namespace HeistItemFinder.MVVM.Views
 
         private void Hotkey_LostFocus(object sender, System.Windows.RoutedEventArgs e)
         {
-            if(Hotkey_TextBox.Text == string.Empty)
+            if (Hotkey_TextBox.Text == string.Empty)
             {
                 Hotkey_TextBox.Text = _previousKeyCombination;
             }

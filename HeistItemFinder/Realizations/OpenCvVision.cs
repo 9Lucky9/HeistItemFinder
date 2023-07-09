@@ -38,7 +38,7 @@ namespace HeistItemFinder.Realizations
                 var grouppedPoints = new List<Tuple<ImageTemplatePoint, ImageTemplatePoint>>();
                 for (int i = 0; i < allMatches.Count; i++)
                 {
-                    for(int j = i + 1; j < allMatches.Count; j++)
+                    for (int j = i + 1; j < allMatches.Count; j++)
                     {
                         var deviationY = Math.Abs(
                             allMatches[i].ImagePoint.Y - allMatches[j].ImagePoint.Y);
@@ -133,7 +133,7 @@ namespace HeistItemFinder.Realizations
                     var originalWidthPoint = maxloc.X * (100 / scale);
                     var originalHeightPoint = maxloc.Y * (100 / scale);
                     var originalImagePoint = new OpenCvSharp.Point(
-                        originalWidthPoint, 
+                        originalWidthPoint,
                         originalHeightPoint);
 
                     //Match point on the template with upscaled template.
@@ -143,7 +143,7 @@ namespace HeistItemFinder.Realizations
 
                     templateMatchPoints.Add(
                         new ImageTemplatePoint(
-                            originalImagePoint, 
+                            originalImagePoint,
                             templateUpscaled));
 
                     //DrawRectangleOnPoint(source, template, originalImagePoint, scale);
@@ -213,8 +213,8 @@ namespace HeistItemFinder.Realizations
 
             source.Rectangle(r, Scalar.Red);
             source.PutText(
-                $"X:{originalPoint.X}, Y: {originalPoint.Y}", 
-                originalPoint, 
+                $"X:{originalPoint.X}, Y: {originalPoint.Y}",
+                originalPoint,
                 HersheyFonts.HersheyPlain, 2.0, Scalar.Green);
             Cv2.ImShow("Test", source);
             Cv2.WaitKey();
