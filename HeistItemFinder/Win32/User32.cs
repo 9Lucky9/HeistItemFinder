@@ -18,7 +18,7 @@ namespace HeistItemFinder.Win32
         public delegate IntPtr LowLevelKeyboardProc(int nCode, IntPtr wParam, [In] IntPtr lParam);
         #endregion
 
-        #region Screen shot win32
+        #region Screenshot win32
         [DllImport("user32.dll")]
         public static extern IntPtr GetWindowDC(IntPtr hWnd);
 

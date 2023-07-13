@@ -16,13 +16,14 @@ namespace HeistItemFinder.Realizations
         //      Keywords could be retrieved from wiki, poe trade etc.
 
         /// <summary>
-        /// All unique keyword's to find.
+        /// Item unique prefix keyword's.
         /// </summary>
         private static IReadOnlyList<string> _itemKeyWords = new List<string>()
         {
             "divergent",
             "anomalous",
             "awakened",
+            "phantasmal",
             "replica",
             "thief's trinket"
         };
@@ -42,67 +43,72 @@ namespace HeistItemFinder.Realizations
                 var items = equipmentResponse.Lines;
                 foreach (var keyword in _itemKeyWords)
                 {
+                    //If text contains keyword,
+                    //cut text to the begining of the keyword
                     if (textFromImage.Contains(keyword, StringComparison.OrdinalIgnoreCase))
                     {
-                        var ind = textFromImage.IndexOf(keyword, StringComparison.OrdinalIgnoreCase);
+                        var ind = textFromImage.IndexOf(
+                            keyword, 
+                            StringComparison.OrdinalIgnoreCase);
                         textFromImage = textFromImage[ind..];
                         break;
                     }
                 }
                 var textLines = FormatTextByLines(textFromImage);
                 var formattedItemName = textLines.First();
-
+                var lastListedItems = new List<BaseEquipment>();
                 if (equipmentResponse.Language is not null)
                 {
-                    var translations = equipmentResponse.Language.Translations;
+                    var translations = equipmentResponse
+                        .Language
+                        .Translations;
                     var englishName = "";
+                    
                     foreach (var translation in translations)
                     {
-                        if (translation.Value.ToLower() == formattedItemName.ToLower())
+                        if (translation.Value.ToLower() == 
+                            formattedItemName.ToLower())
                         {
                             englishName = translation.Key;
                             break;
                         }
                     }
-                    var lastListedItems = items.Where(
-                        x => x.Name.Contains(englishName, StringComparison.OrdinalIgnoreCase));
-                    var mininalPriceItem = lastListedItems.MinBy(x => x.ChaosValue);
-                    var equipment = new BaseEquipment()
-                    {
-                        Name = formattedItemName,
-                        ChaosValue = mininalPriceItem.ChaosValue,
-                        DivineValue = mininalPriceItem.DivineValue,
-                        Icon = mininalPriceItem.Icon
-                    };
-                    return equipment;
+                    lastListedItems = items
+                        .Where(x => x.Name.Contains(
+                            englishName,
+                            StringComparison.OrdinalIgnoreCase)).ToList();
                 }
                 else
                 {
-                    var lastListedItems = items
-                        .Where(x => x.Name
-                        .Contains(formattedItemName, StringComparison.OrdinalIgnoreCase));
-                    if (!lastListedItems.Any())
-                    {
-                        var halfName = formattedItemName[..(formattedItemName.Length / 2)];
-                        lastListedItems = items
-                            .Where(x => x.Name
-                            .Contains(halfName, StringComparison.OrdinalIgnoreCase));
-                    }
-                    if (!lastListedItems.Any())
-                    {
-                        throw new ItemNotFoundException(
-                            "Item were not found. Possibly due to lack of item on poe ninja or bad text input.");
-                    }
-                    var mininalPriceItem = lastListedItems.MinBy(x => x.ChaosValue);
-                    var equipment = new BaseEquipment()
-                    {
-                        Name = mininalPriceItem.Name,
-                        ChaosValue = mininalPriceItem.ChaosValue,
-                        DivineValue = mininalPriceItem.DivineValue,
-                        Icon = mininalPriceItem.Icon
-                    };
-                    return equipment;
+                    lastListedItems = items
+                        .Where(x => x.Name.Contains(
+                            formattedItemName,
+                            StringComparison.OrdinalIgnoreCase)).ToList();
                 }
+                if (!lastListedItems.Any())
+                {
+                    var halfName = formattedItemName[..(formattedItemName.Length / 2)];
+                    lastListedItems = items
+                        .Where(x => x.Name.Contains(
+                            halfName,
+                            StringComparison.OrdinalIgnoreCase)).ToList();
+                }
+                if (!lastListedItems.Any())
+                {
+                    throw new ItemNotFoundException(
+                        "Item were not found. Possibly due to lack of item on poe ninja or bad text input.");
+                }
+                var mininalPriceItem = lastListedItems
+                    .MinBy(x => x.ChaosValue);
+                var equipment = new BaseEquipment()
+                {
+                    Name = mininalPriceItem.Name,
+                    ChaosValue = mininalPriceItem.ChaosValue,
+                    DivineValue = mininalPriceItem.DivineValue,
+                    Icon = mininalPriceItem.Icon
+                };
+                return equipment;
+
             }
             catch (NullReferenceException)
             {

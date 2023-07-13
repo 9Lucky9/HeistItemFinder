@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace HeistItemFinder.Realizations
 {
-    public class PoeNinjaParser : IPoeItemsParser
+    public class PoeNinjaParser : IPoeNinjaParser
     {
         private string _poeNinjaRequestTemplate = "itemoverview?league=Crucible&type={0}&language={1}";
         private const string _basePoeNinjaAddress = "https://poe.ninja/api/data/";
@@ -29,7 +29,6 @@ namespace HeistItemFinder.Realizations
             _client = new HttpClient();
             _client.BaseAddress = new Uri(_basePoeNinjaAddress);
         }
-
 
         /// <summary>
         /// Retrieve all items from the poe ninja.
