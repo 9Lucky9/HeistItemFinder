@@ -2,7 +2,7 @@
 
 namespace HeistItemFinder.Interfaces
 {
-    public interface IPoeItemsParser
+    public interface IPoeNinjaParser
     {
         public Task<EquipmentResponse> ParseItems();
     }

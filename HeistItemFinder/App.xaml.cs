@@ -18,7 +18,7 @@ public partial class App : Application
             .ConfigureServices((hostContext, services) =>
             {
                 //Add services
-                services.AddTransient<IPoeItemsParser, PoeNinjaParser>();
+                services.AddTransient<IPoeNinjaParser, PoeNinjaParser>();
                 services.AddTransient<IPoeTradeParser, PoeTradeParser>();
                 services.AddTransient<IOpenCvVision, OpenCvVision>();
                 services.AddTransient<ITextFromImageReader, TextFromImageReader>();
@@ -44,7 +44,7 @@ public partial class App : Application
                 services.AddSingleton(provider =>
                 new SearchViewModel(
                     provider.GetRequiredService<IPoeTradeParser>(),
-                    provider.GetRequiredService<IPoeItemsParser>(),
+                    provider.GetRequiredService<IPoeNinjaParser>(),
                     provider.GetRequiredService<IOpenCvVision>(),
                     provider.GetRequiredService<ITextFromImageReader>(),
                     provider.GetRequiredService<IScreenShotWin32>(),

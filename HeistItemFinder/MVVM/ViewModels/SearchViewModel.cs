@@ -20,7 +20,7 @@ namespace HeistItemFinder.MVVM.ViewModels
 {
     public class SearchViewModel : ObservableObject
     {
-        private readonly IPoeItemsParser _iPoeNinjaParser;
+        private readonly IPoeNinjaParser _iPoeNinjaParser;
         private readonly IPoeTradeParser _iPoeTradeParser;
         private readonly IOpenCvVision _iOpenCvVision;
         private readonly ITextFromImageReader _iTextFromImageReader;
@@ -55,7 +55,7 @@ namespace HeistItemFinder.MVVM.ViewModels
         /// </summary>
         public SearchViewModel(
             IPoeTradeParser iPoeTradeParser,
-            IPoeItemsParser iPoeItemsParser,
+            IPoeNinjaParser iPoeItemsParser,
             IOpenCvVision iOpenCvVision,
             ITextFromImageReader iTextFromImageReader,
             IScreenShotWin32 iScreenShotHook,
@@ -129,8 +129,8 @@ namespace HeistItemFinder.MVVM.ViewModels
                     return;
             }
             //OpenBrowser();
-            //await FindItemDev();
-            await FindItem();
+            await FindItemDev();
+            //await FindItem();
         }
 
         private void PopupTimer_Tick(object? sender, EventArgs e)
@@ -323,7 +323,7 @@ namespace HeistItemFinder.MVVM.ViewModels
                     _equipmentResponse = await ParseItems();
                 }
                 var testImg = new Bitmap(
-                    "C:\\Users\\pro19\\OneDrive\\Рабочий стол\\OpenCvTests\\EnglishTest10.png");
+                    "C:\\Users\\pro19\\OneDrive\\Рабочий стол\\OpenCvTests\\EnglishTest8.png");
                 var processedImages = _iOpenCvVision.ProcessImage(testImg);
 
                 //SaveTestResults(new Bitmap(img));
