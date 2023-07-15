@@ -39,11 +39,11 @@ jobs:
     
     - name: lsBin
       run: |
-          ls "${{ github.workspace }}\HeistItemFinder\HeistItemFinder\bin\"
+          ls "${{ github.workspace }}\HeistItemFinder\bin\"
 
     - name: ls
       run: |
-          ls "${{ github.workspace }}\HeistItemFinder\HeistItemFinder\bin\Release\net7.0-windows"
+          ls "${{ github.workspace }}\HeistItemFinder\bin\Release\net7.0-windows"
 
     - name: Create release
       uses: softprops/action-gh-release@v1
