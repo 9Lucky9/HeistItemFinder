@@ -6,7 +6,7 @@ name: .NET Release
 on:
   push:
     tags:
-      - v*
+      - "v*.*.*"
 
 jobs:
   build:
@@ -30,18 +30,7 @@ jobs:
       run: dotnet test --no-build --verbosity normal
     - name: Publish
       run: dotnet publish -c Release
-    #- name: Create tag
-    #  uses: actions/github-script@v5
-    #  with:
-    #    script: |
-    #        github.rest.git.createRef({
-    #        owner: context.repo.owner,
-    #        repo: context.repo.repo,
-    #        ref: 'refs/tags/v1.0.0',
-    #        sha: context.sha
-    #        })
     - name: Create release
-      if: ${{ startsWith(github.ref, 'refs/tags/') }}
-      uses: ncipollo/release-action@v1
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/')
+
