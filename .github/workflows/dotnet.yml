@@ -43,8 +43,5 @@ jobs:
             ref: 'refs/tags/v1.0.0',
             sha: context.sha
             })
-
-
-    - uses: ncipollo/release-action@v1
-  
-
+    - name: Create release
+      uses: ncipollo/release-action@v1
