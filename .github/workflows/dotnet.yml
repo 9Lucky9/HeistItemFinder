@@ -33,8 +33,13 @@ jobs:
 
     - name: Test
       run: dotnet test --no-build --verbosity normal
+    
     - name: Publish
-      run: dotnet publish -c Release --self-contained -r win-x64 -p:PublishSingleFile=true
+      run: dotnet publish -c Release
+
+    - name: ls
+      run: |
+          ls ${{ github.workspace }}
 
     - name: Create release
       uses: softprops/action-gh-release@v1
