@@ -1,4 +1,4 @@
-# HeistItemFinder
+# Heist item finder
 Search items in path of exile heist mode without opening browser and manually typing item name
 
 https://github.com/9Lucky9/HeistItemFinder/assets/58329848/af28b8a7-99e4-4a5b-8318-89c5323f3ac3
