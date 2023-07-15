@@ -30,6 +30,16 @@ jobs:
       run: dotnet test --no-build --verbosity normal
     - name: Publish
       run: dotnet publish -c Release
+    - name: Create tag
+      uses: actions/github-script@v5
+      with:
+        script: |
+            github.rest.git.createRef({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            ref: 'refs/tags/v1.0.0',
+            sha: context.sha
+            })
 
     - uses: ncipollo/release-action@v1
   
