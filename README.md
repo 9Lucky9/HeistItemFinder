@@ -7,6 +7,8 @@ https://github.com/9Lucky9/HeistItemFinder/assets/58329848/af28b8a7-99e4-4a5b-83
 
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/Vco8npopcOk/0.jpg)](https://www.youtube.com/watch?v=Vco8npopcOk)
 
+## How to dowload
+I am working on app deployment. It will be available soon after couple of tests.
 
 **Requirements:**
 Win 10 x86, x64, internet connection.
