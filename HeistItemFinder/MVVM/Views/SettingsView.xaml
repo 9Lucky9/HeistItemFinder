@@ -17,7 +17,7 @@
     <Grid x:Name="SettingsGrid" Grid.Row="1" Grid.Column="1" >
         <Grid.RowDefinitions>
             <RowDefinition Height="0.15*"/>
-            <RowDefinition Height="0.4*"/>
+            <RowDefinition Height="0.5*"/>
             <RowDefinition Height="0.9*"/>
         </Grid.RowDefinitions>
 
@@ -29,10 +29,12 @@
             <TextBlock x:Name="testiche" Text="Search hotkey:" FontSize="25"/>
             <TextBox x:Name="Hotkey_TextBox"
                      Text="{Binding KeyCombination}"
+                     IsReadOnly="True"
                      KeyUp="Hotkey_KeyUp" 
                      GotFocus="Hotkey_GotFocus"
                      LostFocus="Hotkey_LostFocus"
                      FontSize="25"/>
+            <Button Content="Apply" FontSize="20"/>
         </WrapPanel>
         
         <Grid x:Name="CurrencyGrid"  Grid.Row="2">
