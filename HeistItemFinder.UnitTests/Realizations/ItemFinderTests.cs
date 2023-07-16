@@ -85,17 +85,12 @@ namespace HeistItemFinder.UnitTests.Realizations
                 Lines = lines,
                 Language = null
             };
-
-            try
+            Assert.Throws<ItemNotFoundException>(() =>
             {
                 var result = _sut.FindLastListedItem(
                     equipmentResponse,
                     textFromImage);
-            }
-            catch (ItemNotFoundException ex)
-            {
-                Assert.IsType<ItemNotFoundException>(ex);
-            }
+            });
         }
     }
 }
