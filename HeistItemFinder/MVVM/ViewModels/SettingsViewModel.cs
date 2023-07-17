@@ -21,8 +21,6 @@ namespace HeistItemFinder.MVVM.ViewModels
             }
         }
 
-        public List<Key> KeysCombination { get; }
-
         private CurrencyEnum _displayedCurrency;
         public CurrencyEnum DisplayedCurrency
         {
@@ -43,8 +41,6 @@ namespace HeistItemFinder.MVVM.ViewModels
         public SettingsViewModel()
         {
             _keyCombination = Properties.Settings.Default.SearchKeysCombination;
-            KeysCombination =
-                SettingsHelper.GetKeysFromSettings(Properties.Settings.Default.SearchKeysCombination);
             _displayedCurrency =
                 (CurrencyEnum)Properties.Settings.Default.DisplayedCurrencyEnum;
         }

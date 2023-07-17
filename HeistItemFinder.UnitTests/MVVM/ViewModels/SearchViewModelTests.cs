@@ -24,5 +24,7 @@ namespace HeistItemFinder.UnitTests.MVVM.ViewModels
             _iScreenShotWin32 = new Mock<IScreenShotWin32>();
             _iKeyboardHook = new Mock<IKeyboardHook>();
         }
+
+
     }
 }

@@ -36,6 +36,13 @@ jobs:
     
     - name: Publish
       run: dotnet publish -c Release
+
+    - name: Zip Release files
+      uses: thedoctor0/zip-release@0.7.1
+      with:
+        type: 'zip'
+        filename: 'Release.zip'
+        directory: "${{ github.workspace }}/HeistItemFinder/bin/Release/net7.0-windows/publish"
     
     - name: lsBin
       run: |
@@ -45,15 +52,17 @@ jobs:
       run: |
           ls "${{ github.workspace }}\HeistItemFinder\bin\Release\net7.0-windows"
 
+    - name: lsPublish
+      run: |
+          ls "${{ github.workspace }}\HeistItemFinder\bin\Release\net7.0-windows\publish"
+
     - name: Create release
       uses: softprops/action-gh-release@v1
       if: startsWith(github.ref, 'refs/tags/')
       with:
         files: |
             LICENSE
-            ${{github.workspace}}
-
-
+            "${{ github.workspace }}\HeistItemFinder\bin\Release\net7.0-windows\publish\Release.zip"
       env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
