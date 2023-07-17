@@ -36,6 +36,13 @@ jobs:
     
     - name: Publish
       run: dotnet publish -c Release
+
+    - name: Zip Release files
+      uses: vimtor/action-zip@v1
+      with:
+        files: |
+            "${{ github.workspace }}\HeistItemFinder\bin\Release\net7.0-windows\publish"
+        dest: Release.zip
     
     - name: lsBin
       run: |
@@ -51,9 +58,7 @@ jobs:
       with:
         files: |
             LICENSE
-            ${{github.workspace}}
-
-
+            "${{ github.workspace }}\HeistItemFinder\bin\Release\net7.0-windows\publish"
       env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
