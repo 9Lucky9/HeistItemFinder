@@ -5,11 +5,8 @@ name: .NET Release
 
 on:
   push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
-    tags:
-      - 'v*'
+      tags:
+      - "v*.*.*"
 
 jobs:
   build:
