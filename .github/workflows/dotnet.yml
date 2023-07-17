@@ -39,8 +39,7 @@ jobs:
     - name: Zip Release files
       uses: vimtor/action-zip@v1
       with:
-        files: |
-            "${{ github.workspace }}\HeistItemFinder\bin\Release\net7.0-windows\publish"
+        files: "${{ github.workspace }}/HeistItemFinder/bin/Release/net7.0-windows/publish"
         dest: Release.zip
     
     - name: lsBin
@@ -50,6 +49,10 @@ jobs:
     - name: ls
       run: |
           ls "${{ github.workspace }}\HeistItemFinder\bin\Release\net7.0-windows"
+
+    - name: lsPublish
+      run: |
+          ls "${{ github.workspace }}\HeistItemFinder\bin\Release\net7.0-windows\publish"
 
     - name: Create release
       uses: softprops/action-gh-release@v1
