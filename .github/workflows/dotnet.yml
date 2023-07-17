@@ -61,7 +61,8 @@ jobs:
       with:
         files: |
             LICENSE
-            "${{ github.workspace }}\HeistItemFinder\bin\Release\net7.0-windows\publish\Release.zip"
+            "${{ github.workspace }}/HeistItemFinder/bin/Release/net7.0-windows/publish/Release.zip"
+
       env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
