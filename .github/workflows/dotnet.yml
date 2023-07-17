@@ -60,8 +60,7 @@ jobs:
       if: startsWith(github.ref, 'refs/tags/')
       with:
         files: |
-            LICENSE.txt
-            "D:/a/HeistItemFinder/HeistItemFinder/HeistItemFinder/bin/Release/net7.0-windows/publish/Release.zip"
+            D:/a/HeistItemFinder/HeistItemFinder/HeistItemFinder/bin/Release/net7.0-windows/publish/Release.zip
 
       env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
