@@ -40,6 +40,6 @@ http://www.apache.org/licenses/LICENSE-2.0
 
 **Windows Presentation Foundation** - https://github.com/dotnet/wpf
 
-All image assets belongs to the developers of the Path of Exile - Grinding Gear Games (GGG) - https://www.pathofexile.com/ https://www.grindinggear.com/
+Image assets such chaos, divine currency and item icons, belongs to the developers of the Path of Exile - Grinding Gear Games (GGG) - https://www.pathofexile.com/ https://www.grindinggear.com/
 
 Currently works with unusual gems and replicas. Thief's trinkets are planned to add.
