@@ -1,5 +1,6 @@
 # Heist item finder
-Search items in path of exile heist mode without opening browser and manually typing item name
+Search items in path of exile heist mode without opening browser and manually typing item name.
+Currently works with unusual gems and replicas. Thief's trinkets are planned to add.
 
 https://github.com/9Lucky9/HeistItemFinder/assets/58329848/af28b8a7-99e4-4a5b-8318-89c5323f3ac3
 
@@ -40,6 +41,4 @@ http://www.apache.org/licenses/LICENSE-2.0
 
 **Windows Presentation Foundation** - https://github.com/dotnet/wpf
 
-Image assets such chaos, divine currency and item icons, belongs to the developers of the Path of Exile - Grinding Gear Games (GGG) - https://www.pathofexile.com/ https://www.grindinggear.com/
-
-Currently works with unusual gems and replicas. Thief's trinkets are planned to add.
+Image assets such as chaos, divine currency and item icons, belong to the developers of the Path of Exile - Grinding Gear Games (GGG) - https://www.pathofexile.com/ https://www.grindinggear.com/
