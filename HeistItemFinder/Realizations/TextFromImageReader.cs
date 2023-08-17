@@ -15,10 +15,9 @@ namespace HeistItemFinder.Realizations
         private List<char> _badCharacters = new List<char>()
         {
             '_', '-', '—',
-            '?', ',',
+            '?', ',', '@',
             '#', '*', '&',
             '<', '>', '$',
-            '%', '@',
             '(', ')',
         };
 
