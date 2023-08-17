@@ -103,13 +103,13 @@ INSERT INTO UsersRoles (UserId, RoleId)
 VALUES (1, 3)
 
 INSERT INTO Product (ProductName, Price)
-VALUES ('Ибупрофен', 50.0)
+VALUES ('Ibuprofen', 50.0)
 
 INSERT INTO Product (ProductName, Price)
-VALUES ('Валерьянка', 20.0)
+VALUES ('Valeryanka', 20.0)
 
 INSERT INTO Product (ProductName, Price)
-VALUES ('Железа фумарат', 250.0)
+VALUES ('Fumarat Iron', 250.0)
 
 SELECT * FROM [User]
 SELECT * FROM [UsersRoles]
