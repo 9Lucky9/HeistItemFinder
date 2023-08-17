@@ -25,18 +25,30 @@
         <Border VerticalAlignment="Bottom" BorderBrush="Gray"
                 BorderThickness="0.5"/>
 
-        <WrapPanel Orientation="Vertical" Grid.Row="1">
-            <TextBlock x:Name="testiche" Text="Search hotkey:" FontSize="25"/>
-            <TextBox x:Name="Hotkey_TextBox"
+        <StackPanel Orientation="Horizontal" Grid.Row="1">
+            <WrapPanel Orientation="Vertical" Grid.Row="1">
+                <TextBlock x:Name="testiche" Text="Search hotkey:" FontSize="25"/>
+                <TextBox x:Name="Hotkey_TextBox"
                      Text="{Binding KeyCombination}"
                      IsReadOnly="True"
                      KeyUp="Hotkey_KeyUp" 
                      GotFocus="Hotkey_GotFocus"
                      LostFocus="Hotkey_LostFocus"
                      FontSize="25"/>
-            <Button Content="Apply" FontSize="20"/>
-        </WrapPanel>
-        
+                <Button Content="Apply" FontSize="20"/>
+            </WrapPanel>
+
+            <WrapPanel Margin="15, 0, 0, 0">
+                <StackPanel>
+                    <TextBlock Text="League:" FontSize="25"/>
+                    <ComboBox ItemsSource="{Binding AvailableLeagues}"
+                              SelectedItem="{Binding SelectedLeague}"
+                              DisplayMemberPath="DisplayName"/>
+                    <TextBlock Text="{Binding SelectedLeague.Name}" FontSize="25"/>
+                </StackPanel>
+            </WrapPanel>
+        </StackPanel>
+
         <Grid x:Name="CurrencyGrid"  Grid.Row="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.5*"/>
@@ -81,6 +93,7 @@
                            VerticalAlignment="Center"
                            ToolTip="{Binding ElementName=RadioButton_Smart, Path=ToolTip}"/>
             </StackPanel>
+
         </Grid>
     </Grid>
 </UserControl>
