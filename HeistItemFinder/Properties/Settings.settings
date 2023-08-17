@@ -14,5 +14,8 @@
     <Setting Name="SearchKeysCombination" Type="System.String" Scope="User">
       <Value Profile="(Default)">LeftCtrl+D1</Value>
     </Setting>
+    <Setting Name="SelectedLeague" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Crucible</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
