@@ -43,8 +43,8 @@
                     <TextBlock Text="League:" FontSize="25"/>
                     <ComboBox ItemsSource="{Binding AvailableLeagues}"
                               SelectedItem="{Binding SelectedLeague}"
-                              DisplayMemberPath="DisplayName"/>
-                    <TextBlock Text="{Binding SelectedLeague.Name}" FontSize="25"/>
+                              DisplayMemberPath="DisplayName"
+                              FontSize="25"/>
                 </StackPanel>
             </WrapPanel>
         </StackPanel>
