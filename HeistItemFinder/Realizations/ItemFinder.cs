@@ -49,7 +49,7 @@ namespace HeistItemFinder.Realizations
                     if (textFromImage.Contains(keyword, StringComparison.OrdinalIgnoreCase))
                     {
                         var ind = textFromImage.IndexOf(
-                            keyword, 
+                            keyword,
                             StringComparison.OrdinalIgnoreCase);
                         textFromImage = textFromImage[ind..];
                         break;
@@ -58,8 +58,8 @@ namespace HeistItemFinder.Realizations
                 var textLines = FormatTextByLines(textFromImage);
                 //First line is the name of the item.
                 var formattedItemName = textLines.First();
-                if(formattedItemName.Contains(
-                    "thief's trinket", 
+                if (formattedItemName.Contains(
+                    "thief's trinket",
                     StringComparison.OrdinalIgnoreCase))
                 {
                     var baseEquipment = new BaseEquipment()
@@ -77,10 +77,10 @@ namespace HeistItemFinder.Realizations
                         .Language
                         .Translations;
                     var englishName = "";
-                    
+
                     foreach (var translation in translations)
                     {
-                        if (translation.Value.ToLower() == 
+                        if (translation.Value.ToLower() ==
                             formattedItemName.ToLower())
                         {
                             englishName = translation.Key;
@@ -137,16 +137,16 @@ namespace HeistItemFinder.Realizations
             var jsonString = File.ReadAllText(trinketDataPath);
             var trinketStats = JsonSerializer.Deserialize<TrinketStats>(jsonString);
             var explicitModifiers = new List<ExplicitModifier>();
-            foreach(var trinketStat in trinketStats.Stats)
+            foreach (var trinketStat in trinketStats.Stats)
             {
-                foreach(var textLine in textLines)
+                foreach (var textLine in textLines)
                 {
                     if (textLine.Contains(trinketStat.Match, StringComparison.OrdinalIgnoreCase))
                     {
                         var number = 0;
                         var possibleTwoNumeralNumber =
                             textLine.Substring(textLine.IndexOf('%') - 2, 2);
-                        if(!int.TryParse(possibleTwoNumeralNumber, out number))
+                        if (!int.TryParse(possibleTwoNumeralNumber, out number))
                         {
                             int.TryParse(textLine.Substring(textLine.IndexOf('%') - 1, 1), out number);
                         }

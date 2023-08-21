@@ -40,8 +40,8 @@ namespace HeistItemFinder.MVVM.ViewModels
         }
 
         private EconomyLeague _selectedLeague;
-        public EconomyLeague SelectedLeague 
-        { 
+        public EconomyLeague SelectedLeague
+        {
             get
             {
                 return _selectedLeague;
@@ -55,11 +55,11 @@ namespace HeistItemFinder.MVVM.ViewModels
             }
         }
         private ObservableCollection<EconomyLeague> _availableLeagues;
-        public ObservableCollection<EconomyLeague> AvailableLeagues 
-        { 
-            get 
-            { 
-                return _availableLeagues; 
+        public ObservableCollection<EconomyLeague> AvailableLeagues
+        {
+            get
+            {
+                return _availableLeagues;
             }
             set
             {
@@ -75,7 +75,7 @@ namespace HeistItemFinder.MVVM.ViewModels
         /// </summary>
         public SettingsViewModel()
         {
-            
+
         }
 
         /// <summary>
@@ -89,7 +89,7 @@ namespace HeistItemFinder.MVVM.ViewModels
                 (CurrencyEnum)Properties.Settings.Default.DisplayedCurrencyEnum;
             _initTask = InitAsync();
         }
-       
+
         private async Task InitAsync()
         {
             AvailableLeagues = new ObservableCollection<EconomyLeague>(

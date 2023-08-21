@@ -91,7 +91,7 @@ namespace HeistItemFinder.Realizations
                 string.Format(
                     PoeNinjaUrls.ItemsRequestTemplate,
                     Properties.Settings.Default.SelectedLeague,
-                    "SkillGem", 
+                    "SkillGem",
                     Properties.Settings.Default.Language));
             var json = await response.Content.ReadFromJsonAsync<SkillGemResponse>();
             //Exclude corrupted gems. They are not included in the heist mode.
@@ -105,7 +105,7 @@ namespace HeistItemFinder.Realizations
                 string.Format(
                     PoeNinjaUrls.ItemsRequestTemplate,
                     Properties.Settings.Default.SelectedLeague,
-                    "UniqueWeapon", 
+                    "UniqueWeapon",
                     Properties.Settings.Default.Language));
             return await response.Content.ReadFromJsonAsync<EquipmentResponse>();
         }
@@ -116,7 +116,7 @@ namespace HeistItemFinder.Realizations
                 string.Format(
                     PoeNinjaUrls.ItemsRequestTemplate,
                     Properties.Settings.Default.SelectedLeague,
-                    "UniqueArmour", 
+                    "UniqueArmour",
                     Properties.Settings.Default.Language));
             return await response.Content.ReadFromJsonAsync<EquipmentResponse>();
         }
@@ -127,7 +127,7 @@ namespace HeistItemFinder.Realizations
                 string.Format(
                     PoeNinjaUrls.ItemsRequestTemplate,
                     Properties.Settings.Default.SelectedLeague,
-                    "UniqueAccessory", 
+                    "UniqueAccessory",
                     Properties.Settings.Default.Language));
             return await response.Content.ReadFromJsonAsync<EquipmentResponse>();
         }

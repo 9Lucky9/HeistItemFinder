@@ -28,7 +28,7 @@ public partial class App : Application
                 services.AddTransient<IItemFinder, ItemFinder>();
 
                 //Add ViewModels
-                services.AddSingleton<SettingsViewModel>(provider => 
+                services.AddSingleton<SettingsViewModel>(provider =>
                 new SettingsViewModel(provider.GetRequiredService<ILeaguesParser>()));
                 services.AddSingleton<SearchViewModel>();
                 services.AddSingleton<MainWindowViewModel>();
