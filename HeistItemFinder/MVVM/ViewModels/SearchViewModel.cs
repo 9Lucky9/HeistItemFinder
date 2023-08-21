@@ -4,6 +4,7 @@ using HeistItemFinder.Models.PoeNinja;
 using HeistItemFinder.MVVM.Core;
 using HeistItemFinder.MVVM.Models;
 using HeistItemFinder.MVVM.Views;
+using HeistItemFinder.Realizations;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
@@ -128,7 +130,7 @@ namespace HeistItemFinder.MVVM.ViewModels
                 if (key.Value == false)
                     return;
             }
-            await FindItem();
+            await FindItemDev();
         }
 
         private void PopupTimer_Tick(object? sender, EventArgs e)
@@ -167,6 +169,11 @@ namespace HeistItemFinder.MVVM.ViewModels
                     .GetTextFromImages(processedImage);
                 var result = _iItemFinder
                     .FindLastListedItem(_equipmentResponse, text);
+                if (result.BaseType == "thief's trinket")
+                {
+                    OpenPoeTradeInBrowser(result);
+                    return null;
+                }
                 var historyItem = GetHistoryItem(result);
                 HistoryItems.Add(historyItem);
                 var popupTimer = new DispatcherTimer();
@@ -268,12 +275,17 @@ namespace HeistItemFinder.MVVM.ViewModels
                     _equipmentResponse = await ParseItems();
                 }
                 var testImg = new Bitmap(
-                    "C:\\Users\\pro19\\OneDrive\\Рабочий стол\\OpenCvTests\\EnglishTest8.png");
+                    "C:\\Users\\pro19\\OneDrive\\Рабочий стол\\OpenCvTests\\EnglishTest10.png");
                 var processedImages = _iOpenCvVision.ProcessImage(testImg);
 
                 //SaveTestResults(new Bitmap(img));
                 var text = _iTextFromImageReader.GetTextFromImages(processedImages);
                 var result = _iItemFinder.FindLastListedItem(_equipmentResponse, text);
+                if (result.BaseType == "thief's trinket")
+                {
+                    OpenPoeTradeInBrowser(result);
+                    return null;
+                }
                 var historyItem = GetHistoryItem(result);
                 HistoryItems.Add(historyItem);
                 var popupTimer = new DispatcherTimer();
@@ -304,16 +316,90 @@ namespace HeistItemFinder.MVVM.ViewModels
             return null;
         }
 
-        private void OpenBrowser()
+        private string FormTrinketQuery(BaseEquipment baseEquipment)
+        {
+            var status = new Status()
+            {
+                Option = "online"
+            };
+            var modifierFilters = new List<Filter>();
+            foreach (var explicitModifier in baseEquipment.ExplicitModifiers)
+            {
+                var filter = new Filter()
+                {
+                    Id = explicitModifier.TradeId,
+                    Disabled = true,
+                    Value = new Value() { Min = explicitModifier.Value }
+                };
+                modifierFilters.Add(filter);
+            }
+            var stat = new Stat()
+            {
+                Type = "and",
+                Filters = modifierFilters.ToArray()
+            };
+            var stats = new Stat[]
+            {
+                stat
+            };
+            var tradeFilters = new Trade_Filters()
+            {
+                Filters = new Filters1()
+                {
+                    Collapse = new Collapse() { Option = "false" }
+                }
+            };
+            var typeFilters = new Type_Filters()
+            {
+                Filters = new Filters2()
+                {
+                    Rarity = new Rarity() { Option = "nonunique" },
+                    Category = new Category() { Option = "accessory.trinket" }
+                }
+            };
+            var miscFilters = new Misc_Filters()
+            {
+                Filters = new Filters3()
+                {
+                    Mirrored = new Mirrored() { Option = "false" }
+                }
+            };
+            var allFilters = new Filters()
+            {
+                Trade_filters = tradeFilters,
+                Type_filters = typeFilters,
+                Misc_filters = miscFilters
+            };
+            var query = new Query()
+            {
+                Status = status,
+                Stats = stats,
+                Filters = allFilters
+            };
+            var itemQuery = new ItemQuery()
+            {
+                Query = query,
+                Sort = new Sort() { Price = "asc" }
+            };
+            return JsonSerializer.Serialize<ItemQuery>(itemQuery);
+        }
+
+        private void OpenPoeTradeInBrowser(BaseEquipment baseEquipment)
+        {
+            var poeTradeUrl = 
+                $"https://www.pathofexile.com/trade/search/{Properties.Settings.Default.SelectedLeague}";
+            var query = FormTrinketQuery(baseEquipment);
+            var fullUrl = $"{poeTradeUrl}?q={query}";
+            OpenBrowser(fullUrl);
+        }
+
+        private void OpenBrowser(string url)
         {
             var defaultBrowserPath = GetSystemDefaultBrowserPath();
-            var htmlFile =
-                AppDomain.CurrentDomain.BaseDirectory + "Realizations\\OpenPoeTrade.html";
-            var destinationurl = "C:\\Users\\pro19\\source\\repos\\HeistItemFinder\\HeistItemFinder\\Realizations\\OpenPoeTrade.html";
             var sInfo = new ProcessStartInfo()
             {
                 FileName = defaultBrowserPath,
-                Arguments = htmlFile,
+                Arguments = url,
                 UseShellExecute = true,
             };
             Process.Start(sInfo);
@@ -354,8 +440,6 @@ namespace HeistItemFinder.MVVM.ViewModels
             }
             return browserPath;
         }
-
-
 
         private Bitmap BitmapImage2Bitmap(BitmapImage bitmapImage)
         {
