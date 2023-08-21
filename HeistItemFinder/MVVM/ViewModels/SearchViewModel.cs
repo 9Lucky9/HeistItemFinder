@@ -130,7 +130,7 @@ namespace HeistItemFinder.MVVM.ViewModels
                 if (key.Value == false)
                     return;
             }
-            await FindItemDev();
+            await FindItem();
         }
 
         private void PopupTimer_Tick(object? sender, EventArgs e)
