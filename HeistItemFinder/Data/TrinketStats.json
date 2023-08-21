@@ -1,0 +1,418 @@
+{
+  "Stats": [
+    {
+      "Name": "Monsters have #% chance to Duplicate dropped Rogue's Marker",
+      "Match": "Monsters have chance to Duplicate dropped Rogue's Marker",
+      "Trade": {
+        "ids": {
+          "explicit": [ "explicit.stat_823106560" ]
+        }
+      }
+    },
+    {
+      "Name": "Smuggler's Caches have #% chance to Duplicate contained Rogue's Markers",
+      "Match": "Smuggler's Caches have chance to Duplicate contained Rogue's Markers",
+      "Trade": {
+        "ids": {
+          "explicit": [ "explicit.stat_833254006" ]
+        }
+      }
+    },
+    {
+      "Name": "#% chance in Heists for Basic Currency drops to be Duplicated",
+      "Match": "chance in Heists for Basic Currency drops to be Duplicated",
+      "Trade": {
+        "ids": {
+          "explicit": [ "explicit.stat_2966079414" ]
+        }
+      }
+    },
+    {
+      "Name": "#% increased Rarity of Items dropped in Heists",
+      "Match": "increased Rarity of Items dropped in Heists",
+      "Trade": {
+        "ids": {
+          "explicit": [ "explicit.stat_2833896424" ]
+        }
+      }
+    },
+    {
+      "Name": "#% increased Quantity of Items dropped in Heists",
+      "Match": "increased Quantity of Items dropped in Heists",
+      "Trade": {
+        "ids": {
+          "explicit": [ "explicit.stat_3683643898" ]
+        }
+      }
+    },
+    {
+      "Name": "#% chance in Heists for Items to drop Corrupted",
+      "Match": "chance in Heists for Items to drop Corrupted",
+      "Trade": {
+        "ids": {
+          "explicit": [ "explicit.stat_530889264" ]
+        }
+      }
+    },
+    {
+      "Name": "#% chance in Heists for Items to drop Identified",
+      "Match": "chance in Heists for Items to drop Identified",
+      "Trade": {
+        "ids": {
+          "explicit": [ "explicit.stat_701843516" ]
+        }
+      }
+    },
+    {
+      "Name": "#% chance in Heists for Items to drop with an additional Socket",
+      "Match": "chance in Heists for Items to drop with an additional Socket",
+      "Trade": {
+        "ids": {
+          "explicit": [ "explicit.stat_986381677" ]
+        }
+      }
+    },
+    {
+      "Name": "#% chance in Heists for Items to drop fully linked",
+      "Match": "chance in Heists for Items to drop fully linked",
+      "Trade": {
+        "ids": {
+          "explicit": [ "explicit.stat_3892832319" ]
+        }
+      }
+    },
+    {
+      "Name": "#% chance in Heists for Items to drop with Shaper Influence",
+      "Match": "chance in Heists for Items to drop with Shaper Influence",
+      "Trade": {
+        "ids": {
+          "explicit": [ "explicit.stat_1494306466" ]
+        }
+      }
+    },
+    {
+      "Name": "#% chance in Heists for Items to drop with Elder Influence",
+      "Match": "chance in Heists for Items to drop with Elder Influence",
+      "Trade": {
+        "ids": {
+          "explicit": [ "explicit.stat_3733808322" ]
+        }
+      }
+    },
+    {
+      "Name": "#% chance in Heists for Orbs of Transmutation to drop as Orbs of Alchemy instead",
+      "Match": "chance in Heists for Orbs of Transmutation to drop as Orbs of Alchemy instead",
+      "Trade": {
+        "ids": {
+          "explicit": [ "explicit.stat_2532905418" ]
+        }
+      }
+    },
+    {
+      "Name": "#% chance in Heists for Orbs of Transmutation to drop as Chaos Orbs instead",
+      "Match": "chance in Heists for Orbs of Transmutation to drop as Chaos Orbs instead",
+      "Trade": {
+        "ids": {
+          "explicit": [ "explicit.stat_3265666559" ]
+        }
+      }
+    },
+    {
+      "Name": "#% chance in Heists for Orbs of Alteration to drop as Orbs of Alchemy instead",
+      "Match": "chance in Heists for Orbs of Alteration to drop as Orbs of Alchemy instead",
+      "Trade": {
+        "ids": {
+          "explicit": [ "explicit.stat_1122682019" ]
+        }
+      }
+    },
+    {
+      "Name": "#% chance in Heists for Orbs of Alteration to drop as Chaos Orbs instead",
+      "Match": "chance in Heists for Orbs of Alteration to drop as Chaos Orbs instead",
+      "Trade": {
+        "ids": {
+          "explicit": [ "explicit.stat_844812352" ]
+        }
+      }
+    },
+    {
+      "Name": "#% chance in Heists for Orbs of Alteration to drop as Regal Orbs instead",
+      "Match": "chance in Heists for Orbs of Alteration to drop as Regal Orbs instead",
+      "Trade": {
+        "ids": {
+          "explicit": [ "explicit.stat_1290611485" ]
+        }
+      }
+    },
+    {
+      "Name": "#% chance in Heists for Orbs of Augmentation to drop as Orbs of Alchemy instead",
+      "Match": "chance in Heists for Orbs of Augmentation to drop as Orbs of Alchemy instead",
+      "Trade": {
+        "ids": {
+          "explicit": [ "explicit.stat_306037665" ]
+        }
+      }
+    },
+    {
+      "Name": "#% chance in Heists for Orbs of Augmentation to drop as Chaos Orbs instead",
+      "Match": "chance in Heists for Orbs of Augmentation to drop as Chaos Orbs instead",
+      "Trade": {
+        "ids": {
+          "explicit": [ "explicit.stat_2559492014" ]
+        }
+      }
+    },
+    {
+      "Name": "#% chance in Heists for Orbs of Augmentation to drop as Regal Orbs instead",
+      "Match": "chance in Heists for Orbs of Augmentation to drop as Regal Orbs instead",
+      "Trade": {
+        "ids": {
+          "explicit": [ "explicit.stat_1071676747" ]
+        }
+      }
+    },
+    {
+      "Name": "#% chance in Heists for Chaos Orbs to drop as Divine Orbs instead",
+      "Match": "chance in Heists for Chaos Orbs to drop as Divine Orbs instead",
+      "Trade": {
+        "ids": {
+          "explicit": [ "explicit.stat_2106095595" ]
+        }
+      }
+    },
+    {
+      "Name": "#% chance in Heists for Chaos Orbs to drop as Exalted Orbs instead",
+      "Match": "chance in Heists for Chaos Orbs to drop as Exalted Orbs instead",
+      "Trade": {
+        "ids": {
+          "explicit": [ "explicit.stat_779592324" ]
+        }
+      }
+    },
+    {
+      "Name": "#% chance in Heists for Regal Orbs to drop as Divine Orbs instead",
+      "Match": "chance in Heists for Regal Orbs to drop as Divine Orbs instead",
+      "Trade": {
+        "ids": {
+          "explicit": [ "explicit.stat_2766470009" ]
+        }
+      }
+    },
+    {
+      "Name": "#% chance in Heists for Regal Orbs to drop as Exalted Orbs instead",
+      "Match": "chance in Heists for Regal Orbs to drop as Exalted Orbs instead",
+      "Trade": {
+        "ids": {
+          "explicit": [ "explicit.stat_866391849" ]
+        }
+      }
+    },
+    {
+      "Name": "#% chance in Heists for Orbs of Scouring to drop as Orbs of Regret instead",
+      "Match": "chance in Heists for Orbs of Scouring to drop as Orbs of Regret instead",
+      "Trade": {
+        "ids": {
+          "explicit": [ "explicit.stat_1824085933" ]
+        }
+      }
+    },
+    {
+      "Name": "#% chance in Heists for Orbs of Scouring to drop as Orbs of Annulment instead",
+      "Match": "chance in Heists for Orbs of Scouring to drop as Orbs of Annulment instead",
+      "Trade": {
+        "ids": {
+          "explicit": [ "explicit.stat_2845459668" ]
+        }
+      }
+    },
+    {
+      "Name": "#% chance in Heists for Orbs of Regret to drop as Orbs of Annulment instead",
+      "Match": "chance in Heists for Orbs of Regret to drop as Orbs of Annulment instead",
+      "Trade": {
+        "ids": {
+          "explicit": [ "explicit.stat_559827707" ]
+        }
+      }
+    },
+    {
+      "Name": "#% chance in Heists for Chromatic Orbs to drop as Jeweller's Orbs instead",
+      "Match": "chance in Heists for Chromatic Orbs to drop as Jeweller's Orbs instead",
+      "Trade": {
+        "ids": {
+          "explicit": [ "explicit.stat_1545361315" ]
+        }
+      }
+    },
+    {
+      "Name": "#% chance in Heists for Chromatic Orbs to drop as Orbs of Fusing instead",
+      "Match": "chance in Heists for Chromatic Orbs to drop as Orbs of Fusing instead",
+      "Trade": {
+        "ids": {
+          "explicit": [ "explicit.stat_3213734550" ]
+        }
+      }
+    },
+    {
+      "Name": "Heist Chests have a #% chance to Duplicate contained Basic Currency",
+      "Match": "Heist Chests have a chance to Duplicate contained Basic Currency",
+      "Trade": {
+        "ids": {
+          "explicit": [ "explicit.stat_14664297" ]
+        }
+      }
+      },
+      {
+        "Name": "Heist Chests have a #% chance to contain more valuable Uniques",
+        "Match": "Heist Chests have a chance to contain more valuable Uniques",
+        "Trade": {
+          "ids": {
+            "explicit": [ "explicit.stat_3288016752" ]
+          }
+        }
+      },
+      {
+        "Name": "#% chance to receive additional Armour items when opening a Reward Chest in a Heist",
+        "Match": "chance to receive additional Armour items when opening a Reward Chest in a Heist",
+        "Trade": {
+          "ids": {
+            "explicit": [ "explicit.stat_3835470471" ]
+          }
+        }
+      },
+      {
+        "Name": "#% chance to receive additional Weapons when opening a Reward Chest in a Heist",
+        "Match": "chance to receive additional Weapons when opening a Reward Chest in a Heist",
+        "Trade": {
+          "ids": {
+            "explicit": [ "explicit.stat_953018841" ]
+          }
+        }
+      },
+      {
+        "Name": "#% chance to receive additional Jewellery when opening a Reward Chest in a Heist",
+        "Match": "chance to receive additional Jewellery when opening a Reward Chest in a Heist",
+        "Trade": {
+          "ids": {
+            "explicit": [ "explicit.stat_1323476506" ]
+          }
+        }
+      },
+      {
+        "Name": "#% chance to receive additional Gem items when opening a Reward Chest in a Heist",
+        "Match": "chance to receive additional Gem items when opening a Reward Chest in a Heist",
+        "Trade": {
+          "ids": {
+            "explicit": [ "explicit.stat_2610785454" ]
+          }
+        }
+      },
+      {
+        "Name": "#% chance to receive additional Essences when opening a Reward Chest in a Heist",
+        "Match": "chance to receive additional Essences when opening a Reward Chest in a Heist",
+        "Trade": {
+          "ids": {
+            "explicit": [ "explicit.stat_2454528473" ]
+          }
+        }
+      },
+      {
+        "Name": "#% chance to receive additional Divination Card items when opening a Reward Chest in a Heist",
+        "Match": "chance to receive additional Divination Card items when opening a Reward Chest in a Heist",
+        "Trade": {
+          "ids": {
+            "explicit": [ "explicit.stat_3099138455" ]
+          }
+        }
+      },
+      {
+        "Name": "#% chance to receive additional Unique items when opening a Reward Chest in a Heist",
+        "Match": "chance to receive additional Unique items when opening a Reward Chest in a Heist",
+        "Trade": {
+          "ids": {
+            "explicit": [ "explicit.stat_3145607602" ]
+          }
+        }
+      },
+      {
+        "Name": "#% chance to receive additional Talismans when opening a Reward Chest in a Heist",
+        "Match": "chance to receive additional Talismans when opening a Reward Chest in a Heist",
+        "Trade": {
+          "ids": {
+            "explicit": [ "explicit.stat_2917742181" ]
+          }
+        }
+      },
+      {
+        "Name": "#% chance to receive additional Abyss items when opening a Reward Chest in a Heist",
+        "Match": "chance to receive additional Abyss items when opening a Reward Chest in a Heist",
+        "Trade": {
+          "ids": {
+            "explicit": [ "explicit.stat_1361025326" ]
+          }
+        }
+      },
+      {
+        "Name": "#% chance to receive additional Breach items when opening a Reward Chest in a Heist",
+        "Match": "chance to receive additional Breach items when opening a Reward Chest in a Heist",
+        "Trade": {
+          "ids": {
+            "explicit": [ "explicit.stat_4146386957" ]
+          }
+        }
+      },
+      {
+        "Name": "#% chance to receive additional Metamorph items when opening a Reward Chest in a Heist",
+        "Match": "chance to receive additional Metamorph items when opening a Reward Chest in a Heist",
+        "Trade": {
+          "ids": {
+            "explicit": [ "explicit.stat_1485150248" ]
+          }
+        }
+      },
+      {
+        "Name": "#% chance to receive additional Delirium items when opening a Reward Chest in a Heist",
+        "Match": "chance to receive additional Delirium items when opening a Reward Chest in a Heist",
+        "Trade": {
+          "ids": {
+            "explicit": [ "explicit.stat_3876876906" ]
+          }
+        }
+      },
+      {
+        "Name": "#% chance to receive additional Legion items when opening a Reward Chest in a Heist",
+        "Match": "chance to receive additional Legion items when opening a Reward Chest in a Heist",
+        "Trade": {
+          "ids": {
+            "explicit": [ "explicit.stat_1463604143" ]
+          }
+        }
+      },
+      {
+        "Name": "#% chance to receive additional Blight items when opening a Reward Chest in a Heist",
+        "Match": "chance to receive additional Blight items when opening a Reward Chest in a Heist",
+        "Trade": {
+          "ids": {
+            "explicit": [ "explicit.stat_2581419165" ]
+          }
+        }
+      },
+      {
+        "Name": "#% chance to receive additional Harbinger items when opening a Reward Chest in a Heist",
+        "Match": "#% chance to receive additional Harbinger items when opening a Reward Chest in a Heist",
+        "Trade": {
+          "ids": {
+            "explicit": [ "explicit.stat_73487979" ]
+          }
+        }
+      },
+      {
+        "Name": "#% chance to receive additional Delve items when opening a Reward Chest in a Heist",
+        "Match": "chance to receive additional Delve items when opening a Reward Chest in a Heist",
+        "Trade": {
+          "ids": {
+            "explicit": [ "explicit.stat_1852069308" ]
+          }
+        }
+      }
+  ]
+}

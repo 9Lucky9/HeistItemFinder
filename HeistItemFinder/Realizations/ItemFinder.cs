@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.Json;
 
 namespace HeistItemFinder.Realizations
 {
@@ -29,7 +30,7 @@ namespace HeistItemFinder.Realizations
         };
 
         /// <summary>
-        /// Find last item in parsed data.
+        /// Find last item in the parsed data.
         /// </summary>
         /// <param name="equipmentResponse">Parsed items.</param>
         /// <param name="textFromImage">Text from an image</param>
@@ -55,7 +56,20 @@ namespace HeistItemFinder.Realizations
                     }
                 }
                 var textLines = FormatTextByLines(textFromImage);
+                //First line is the name of the item.
                 var formattedItemName = textLines.First();
+                if(formattedItemName.Contains(
+                    "thief's trinket", 
+                    StringComparison.OrdinalIgnoreCase))
+                {
+                    var baseEquipment = new BaseEquipment()
+                    {
+                        Name = formattedItemName,
+                        BaseType = "thief's trinket"
+                    };
+                    baseEquipment = AppendStats(textLines, baseEquipment);
+                    return baseEquipment;
+                }
                 var lastListedItems = new List<BaseEquipment>();
                 if (equipmentResponse.Language is not null)
                 {
@@ -115,14 +129,40 @@ namespace HeistItemFinder.Realizations
                 throw new ItemNotFoundException(
                     "Item were not found. Possibly due to lack of item on poe ninja or bad text input.");
             }
-            catch (Exception)
-            {
-                throw new ItemNotFoundException(
-                    "Item were not found. Possibly due to lack of item on poe ninja or bad text input.");
-            }
-
         }
 
+        private static BaseEquipment AppendStats(List<string> textLines, BaseEquipment baseEquipment)
+        {
+            var trinketDataPath = $"{AppDomain.CurrentDomain.BaseDirectory}Data\\TrinketStats.json";
+            var jsonString = File.ReadAllText(trinketDataPath);
+            var trinketStats = JsonSerializer.Deserialize<TrinketStats>(jsonString);
+            var explicitModifiers = new List<ExplicitModifier>();
+            foreach(var trinketStat in trinketStats.Stats)
+            {
+                foreach(var textLine in textLines)
+                {
+                    if (textLine.Contains(trinketStat.Match, StringComparison.OrdinalIgnoreCase))
+                    {
+                        var number = 0;
+                        var possibleTwoNumeralNumber =
+                            textLine.Substring(textLine.IndexOf('%') - 2, 2);
+                        if(!int.TryParse(possibleTwoNumeralNumber, out number))
+                        {
+                            int.TryParse(textLine.Substring(textLine.IndexOf('%') - 1, 1), out number);
+                        }
+                        var explicitModifier = new ExplicitModifier()
+                        {
+                            TradeId = trinketStat.Trade.Ids.Explicit.First(),
+                            Value = number,
+                            Text = trinketStat.Name,
+                        };
+                        explicitModifiers.Add(explicitModifier);
+                    }
+                }
+            }
+            baseEquipment.ExplicitModifiers = explicitModifiers.ToArray();
+            return baseEquipment;
+        }
 
         /// <summary>
         /// Format text as lines.

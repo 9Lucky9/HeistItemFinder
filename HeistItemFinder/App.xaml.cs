@@ -18,6 +18,7 @@ public partial class App : Application
             .ConfigureServices((hostContext, services) =>
             {
                 //Add services
+                services.AddTransient<ILeaguesParser, LeaguesParser>();
                 services.AddTransient<IPoeNinjaParser, PoeNinjaParser>();
                 services.AddTransient<IPoeTradeParser, PoeTradeParser>();
                 services.AddTransient<IOpenCvVision, OpenCvVision>();
@@ -27,7 +28,8 @@ public partial class App : Application
                 services.AddTransient<IItemFinder, ItemFinder>();
 
                 //Add ViewModels
-                services.AddSingleton<SettingsViewModel>();
+                services.AddSingleton<SettingsViewModel>(provider => 
+                new SettingsViewModel(provider.GetRequiredService<ILeaguesParser>()));
                 services.AddSingleton<SearchViewModel>();
                 services.AddSingleton<MainWindowViewModel>();
 

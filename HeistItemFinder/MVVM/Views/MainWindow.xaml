@@ -8,7 +8,7 @@
         xmlns:viewmodels="clr-namespace:HeistItemFinder.MVVM.ViewModels" 
         xmlns:views="clr-namespace:HeistItemFinder.MVVM.Views" 
         mc:Ignorable="d"
-        Title="Heist item finder" Height="450" Width="800"
+        Title="Heist item finder" Height="450" Width="1000"
         Closing="Window_Closing"
         d:DataContext="{d:DesignInstance Type=viewmodels:MainWindowViewModel, IsDesignTimeCreatable=True}">
 
@@ -24,11 +24,11 @@
 
         <TextBlock Text="Heist item finder" Grid.Column="0" Grid.Row="0" FontSize="50"/>
 
-        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1">
+        <StackPanel  Orientation="Horizontal" Grid.Row="0" Grid.Column="1" Margin="150,0,0,0">
             <TextBlock VerticalAlignment="Center" Grid.Row="0" Text="In-game Language:" FontSize="25"/>
             <ComboBox Grid.Row="1" x:Name="testik" IsReadOnly="True" 
                   ItemsSource="{Binding Images}"
-                  SelectedItem="{Binding SelectedLanguageImage}">
+                  SelectedItem="{Binding SelectedLanguageImage}" Width="122">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <Image Source="{Binding Uri}"/>
@@ -43,12 +43,10 @@
                 <ColumnDefinition Width="0.5*"/>
             </Grid.ColumnDefinitions>
 
-            <views:SettingsView Grid.Column="1" Grid.Row="1" DataContext="{Binding SettingsViewModel}"/>
             <views:SearchView Grid.Column="0" Grid.Row="1" DataContext="{Binding SearchViewModel}"/>
+            <views:SettingsView Grid.Column="1" Grid.Row="1" DataContext="{Binding SettingsViewModel}"/>
 
         </Grid>
-        
-
 
     </Grid>
 </Window>

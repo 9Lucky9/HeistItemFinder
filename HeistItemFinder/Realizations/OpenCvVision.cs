@@ -33,8 +33,8 @@ namespace HeistItemFinder.Realizations
                 //Cv2.ImShow("Test", _image);
                 //Cv2.WaitKey();
 
-                //Group matches by Y coordinate.
-                //By selecting points where Y coordinate is within small deviation (around 2 pixels).
+                //Group matches by Y coordinate
+                //by selecting points where Y coordinate is within small deviation (around 2 pixels).
                 var grouppedPoints = new List<Tuple<ImageTemplatePoint, ImageTemplatePoint>>();
                 for (int i = 0; i < allMatches.Count; i++)
                 {
@@ -85,7 +85,7 @@ namespace HeistItemFinder.Realizations
                     //Size of rectangle
                     var rectWidth = max.X - min.X + firstMatch.TemplatePoint.X;
                     //Multiply by 2 because replica's have much higher box.
-                    var rectHeight = firstMatch.TemplatePoint.Y * 2;
+                    var rectHeight = firstMatch.TemplatePoint.Y * 8;
 
                     var rect = new Rect(
                         min,
