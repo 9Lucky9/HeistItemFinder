@@ -42,9 +42,10 @@
                 <StackPanel>
                     <TextBlock Text="League:" FontSize="25"/>
                     <ComboBox ItemsSource="{Binding AvailableLeagues}"
-                              SelectedItem="{Binding SelectedLeague}"
+                              SelectedItem="{Binding SelectedLeague, Mode=TwoWay}"
                               DisplayMemberPath="DisplayName"
-                              FontSize="25"/>
+                              FontSize="25"
+                              DropDownClosed="ComboBox_DropDownClosed"/>
                 </StackPanel>
             </WrapPanel>
         </StackPanel>

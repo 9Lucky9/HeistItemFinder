@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace HeistItemFinder.MVVM.Views
@@ -38,6 +39,11 @@ namespace HeistItemFinder.MVVM.Views
             {
                 Hotkey_TextBox.Text = _previousKeyCombination;
             }
+        }
+
+        private void ComboBox_DropDownClosed(object sender, System.EventArgs e)
+        {
+            MessageBox.Show("If you changed league, restart application. Real time league changing would be implemented soon.");
         }
     }
 }
