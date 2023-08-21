@@ -386,7 +386,7 @@ namespace HeistItemFinder.MVVM.ViewModels
 
         private void OpenPoeTradeInBrowser(BaseEquipment baseEquipment)
         {
-            var poeTradeUrl = 
+            var poeTradeUrl =
                 $"https://www.pathofexile.com/trade/search/{Properties.Settings.Default.SelectedLeague}";
             var query = FormTrinketQuery(baseEquipment);
             var fullUrl = $"{poeTradeUrl}?q={query}";

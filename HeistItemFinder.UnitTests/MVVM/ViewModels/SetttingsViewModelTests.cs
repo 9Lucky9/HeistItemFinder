@@ -1,5 +1,4 @@
 ﻿using HeistItemFinder.MVVM.ViewModels;
-using System.Windows.Input;
 using Xunit;
 
 namespace HeistItemFinder.UnitTests.MVVM.ViewModels

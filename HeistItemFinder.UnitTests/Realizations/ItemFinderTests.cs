@@ -21,7 +21,7 @@ namespace HeistItemFinder.UnitTests.Realizations
         [Fact]
         public void FindLastListedItemShoulReturnRightItem()
         {
-            var textFromImage = 
+            var textFromImage =
                 " \r\n\r\n \r\n\r\nPHANTASMAL SUMMON SKELETONS\r\n\r\n \r\n\r\n \r\n\r\n";
             var baseEquipment = new BaseEquipment()
             {
@@ -35,8 +35,8 @@ namespace HeistItemFinder.UnitTests.Realizations
                 DivineValue = 0.15M,
                 ChaosValue = 35,
             };
-            var lines = new BaseEquipment[] 
-            { 
+            var lines = new BaseEquipment[]
+            {
                 baseEquipment,
                 expectedResult
             };
@@ -47,7 +47,7 @@ namespace HeistItemFinder.UnitTests.Realizations
             };
 
             var result = _sut.FindLastListedItem(
-                equipmentResponse, 
+                equipmentResponse,
                 textFromImage);
 
             Assert.Equal(expectedResult.ChaosValue, result.ChaosValue);
