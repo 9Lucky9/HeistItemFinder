@@ -54,11 +54,11 @@ namespace HeistItemFinder.UnitTests.Realizations
         }
 
         /// <summary>
-        /// No such item is parsed from poe ninja
-        /// should throw ItemNotFoundException.
+        /// Thief's trinket is supported
+        /// should return item with base type Thie'f trinket.
         /// </summary>
         [Fact]
-        public void FindLastListedShouldThrowItemNotFoundException()
+        public void FindLastListedShouldFindThiefTrinket()
         {
             //Add some artifacts to the text.
             var textFromImage =
