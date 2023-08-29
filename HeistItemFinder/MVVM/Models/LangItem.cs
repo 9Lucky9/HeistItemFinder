@@ -10,7 +10,10 @@ namespace HeistItemFinder.MVVM.Models
         public LangItem(string languageCode)
         {
             LanguageCode = languageCode;
-            var uri = new Uri(@"pack://application:,,,/Assets/Language images/" + languageCode + ".png");
+            var uri = 
+                new Uri(
+                    @"pack://application:,,,/Assets/Language images/" 
+                        + languageCode + ".png");
             Uri = uri;
         }
     }

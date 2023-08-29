@@ -5,21 +5,17 @@ using System.Drawing;
 using static HeistItemFinder.Win32.GDI32;
 using static HeistItemFinder.Win32.User32;
 
-
 namespace HeistItemFinder.Realizations
 {
     public class ScreenShotWin32 : IScreenShotWin32
     {
+        /// <inheritdoc/>
         public Image CaptureScreen()
         {
             return CaptureWindow(GetDesktopWindow());
         }
 
-        /// <summary>
-        /// Creates an Image object containing a screen shot of a specific window
-        /// </summary>
-        /// <param name="handle">The handle to the window.</param>
-        /// <returns></returns>
+        /// <inheritdoc/>
         public Image CaptureWindow(IntPtr handle)
         {
             // get te hDC of the target window
