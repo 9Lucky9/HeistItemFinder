@@ -15,7 +15,7 @@ Go to the [releases](https://github.com/9Lucky9/HeistItemFinder/releases), downl
 Win 10 x86, x64, internet connection.
 
 Tech stack
-.Net 7.0, WPF, MVVM, IoC, DI, Service layer, OpenCV, tesseract.
+.Net 7.0, WPF, OpenCV, tesseract.
 
 ## Credits
 
